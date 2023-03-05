@@ -83,6 +83,11 @@ nav[data-visible="true"] {
 }
 @media (min-width:60rem) {
     nav {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: translateX(0);
+        height: auto;
         width: 70%;
         justify-content: space-between;
     }
