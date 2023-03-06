@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LandingNavbar from '@/components/LandingNavbar.vue';
-import hero from"../assets/images/Hero Image.png"
+
 
 </script>
 
@@ -15,7 +15,7 @@ import hero from"../assets/images/Hero Image.png"
         <RouterLink to="/products" class="shopping">Shopping now</RouterLink>
       </div>
       <div class="image">
-        <img :src="'src/assets/images/Hero Image.png'" alt="a lady with shopping bags">
+        <img :src="'./src/assets/images/Hero Image.png'" alt="a lady with shopping bags">
       </div>
     </section>
     <section class="brands">
