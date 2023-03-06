@@ -58,6 +58,7 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
         <p class="grey">24/7 customer support avaliable</p>
       </div>
     </section>
+    <FooterBar/>
   </main>
 </template>
 
