@@ -34,8 +34,8 @@ const visible = ref(false)
                 <li>
                     <RouterLink to="/login">Login</RouterLink>
                 </li>
-                <li>
-                    <RouterLink to="/register">Register</RouterLink>
+                <li class="signup">
+                    <RouterLink to="/signup">Sign up</RouterLink>
                 </li>
             </ul>
         </nav>
@@ -52,16 +52,24 @@ header {
     background-color: #fff;
 }
 
+header a {
+    color: #000;
+}
+
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    position: absolute;
+    max-width: 400px;
+    top: 6em;
+    left: 3em;
+    right: 3em;
+    padding: 1em;
+    text-align: center;
+    border-radius: 8px;
     background-color: #fff;
-    transform: translateX(-100%);
+    transform: translateX(-1000%);
     transition: all 0.5s ease;
 }
+
 nav[data-visible="true"] {
     transform: translateX(0);
     z-index: 100000;
@@ -77,10 +85,34 @@ nav[data-visible="true"] {
     background-size: cover;
     cursor: pointer;
 }
+
 .mobile_nav[aria-expanded="true"] {
     background-image: url(../assets/icon-close.svg);
     z-index: 100000;
 }
+
+.routes {
+    border-bottom: 1px solid grey;
+}
+
+.routes li,
+.sigin_wrapper li {
+    margin-bottom: 0.5em;
+}
+
+.signup {
+    background-color: hsl(180, 55%, 17%);
+    border-radius: 12px;
+    cursor: pointer;
+    width: 30%;
+    margin: auto;
+    padding: 0.5em;
+}
+
+.signup a {
+    color: #fff;
+}
+
 @media (min-width:60rem) {
     nav {
         position: relative;
@@ -88,8 +120,10 @@ nav[data-visible="true"] {
         left: auto;
         transform: translateX(0);
         height: auto;
+        max-width: none;
         width: 70%;
         justify-content: space-between;
+        padding: 0;
     }
 
     nav,
@@ -104,6 +138,7 @@ nav[data-visible="true"] {
         width: 70%;
         justify-content: center;
         gap: 3em;
+        border-bottom: none;
     }
 
     .sigin_wrapper {
