@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LandingNavbar from '@/components/LandingNavbar.vue';
 
+
 </script>
 
 <template>
@@ -14,7 +15,7 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
         <RouterLink to="/products" class="shopping">Shopping now</RouterLink>
       </div>
       <div class="image">
-        <img src="/assets/images/Hero Image.png" alt="a lady with shopping bags">
+        <img src="../assets/images/Hero Image.png" alt="a lady with shopping bags">
       </div>
     </section>
     <section class="brands">
