@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LandingNavbar from '@/components/LandingNavbar.vue';
-
+import FooterBar from '@/components/FooterBar.vue';
 </script>
 
 <template>
@@ -44,19 +44,22 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
     </section>
     <section class="why">
       <h3>Why choose Buy?</h3>
-      <div class="delivery">
-        <img :src="'/images/delivery.png'" alt="a delivery bus" class=" land_icon">
-        <h4>Free Delivery</h4>
-        <p class="grey">Free delivery across Nigeria</p>
+      <div class="services">
+   <div class="delivery">
+          <img :src="'/images/delivery.png'" alt="a delivery bus" class=" land_icon">
+          <h4>Free Delivery</h4>
+          <p class="grey">Free delivery across Nigeria</p>
+        </div>
+        <div class="trust"><img :src="'/images/trust.png'" alt="shaking hands" class="land_icon">
+          <h4>Trusted platform</h4>
+          <p class="grey">We are partners with top leading E-commerce and brands</p>
+        </div>
+        <div class="support"><img :src="'/images/support.png'" alt="24/7" class="land_icon">
+          <h4>here for you</h4>
+          <p class="grey">24/7 customer support avaliable</p>
+        </div>
       </div>
-      <div class="trust"><img :src="'/images/trust.png'" alt="shaking hands" class="land_icon">
-        <h4>Trusted platform</h4>
-        <p class="grey">We are partners with top leading E-commerce and brands</p>
-      </div>
-      <div class="support"><img :src="'/images/support.png'" alt="24/7" class="land_icon">
-        <h4>here for you</h4>
-        <p class="grey">24/7 customer support avaliable</p>
-      </div>
+     
     </section>
     <FooterBar/>
   </main>
@@ -168,15 +171,18 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
   .landing {
     padding-inline: 5em;
   }
-
   .title {
     font-size: 54px;
     line-height: 60px;
     margin-bottom: 0.5em;
   }
-
   .hero {
     display: grid;
     grid-template-columns: 40% 60%;
+  }
+  .services{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 }</style>
