@@ -14,8 +14,15 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
         <RouterLink to="/products" class="shopping">Shopping now</RouterLink>
       </div>
       <div class="image">
-        <img src=".././assets/images/Hero Image.png" alt="a lady with shopping bags">
+        <img src="/assets/images/Hero Image.png" alt="a lady with shopping bags">
       </div>
+    </section>
+    <section class="brands">
+<h2>We Collaborate With 250++ Leading Top
+  E Commerce and Brands</h2>
+  <div class="brands">
+
+  </div>
     </section>
   </main>
 </template>
