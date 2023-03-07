@@ -3,13 +3,14 @@ import { useStore } from 'vuex';
 import FooterBar from '@/components/FooterBar.vue';
 import LandingNavbar from '@/components/LandingNavbar.vue';
 import { ref } from 'vue';
-
+import { useRouter } from 'vue-router';
 const store = useStore()
 const form = ref({password:"",email:"",username:""})
+const router = useRouter()
 const signUpUser=(e:Event) =>{
     e.preventDefault()
     store.dispatch('signUp',form.value)  
-    
+    router.push('/products')
 } 
 
 
