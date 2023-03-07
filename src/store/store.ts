@@ -17,6 +17,20 @@ export const store = createStore({
             state.authIsReady = payload
         }
 
+    },
+    actions: {
+        signUp(context, { password, email, username }: { email: string, password: string, username: string }) {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    updateProfile(user, { displayName: username })
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage)
+                });
+        }
     }
-});
 
+});
