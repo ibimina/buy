@@ -43,26 +43,27 @@ import FooterBar from '@/components/FooterBar.vue';
       </div>
     </section>
     <section class="why">
-      <h3>Why choose Buy?</h3>
+      <h3 class="why_q">Why choose Buy?</h3>
       <div class="services">
-   <div class="delivery">
+        <div class="delivery service">
           <img :src="'/images/delivery.png'" alt="a delivery bus" class=" land_icon">
-          <h4>Free Delivery</h4>
+          <h4 class="serv_title">Free Delivery</h4>
           <p class="grey">Free delivery across Nigeria</p>
         </div>
-        <div class="trust"><img :src="'/images/trust.png'" alt="shaking hands" class="land_icon">
-          <h4>Trusted platform</h4>
+        <div class="trust service"><img :src="'/images/trust.png'" alt="shaking hands" class="land_icon">
+          <h4 class="serv_title">Trusted platform</h4>
           <p class="grey">We are partners with top leading E-commerce and brands</p>
         </div>
         <div class="support"><img :src="'/images/support.png'" alt="24/7" class="land_icon">
-          <h4>here for you</h4>
+          <h4 class="serv_title">Here for you</h4>
           <p class="grey">24/7 customer support avaliable</p>
         </div>
       </div>
-     
+
     </section>
-    <FooterBar/>
+   
   </main>
+   <FooterBar />
 </template>
 
 <style scoped>
@@ -151,13 +152,23 @@ import FooterBar from '@/components/FooterBar.vue';
   width: 70px;
   margin: auto;
 }
-.why{
+
+.why {
   text-align: center;
   margin: 1em 0;
 }
-.grey{
+.why_q{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+.service{
+  margin-bottom: 2em;
+}
+.grey {
   color: #535A56;
 }
+
 .bold {
   font-size: 20px;
   font-weight: 700;
@@ -166,23 +177,53 @@ import FooterBar from '@/components/FooterBar.vue';
 .light {
   font-weight: 500;
 }
+.serv_title{
+  font-size: 18px;
+  font-weight: 500;
+}
 
 @media (min-width:60rem) {
   .landing {
     padding-inline: 5em;
   }
+
   .title {
     font-size: 54px;
     line-height: 60px;
     margin-bottom: 0.5em;
   }
+
   .hero {
     display: grid;
     grid-template-columns: 40% 60%;
   }
-  .services{
+
+  .services {
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  .category {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 1em;
+    margin-bottom: 2em;
+  }
+
+  .col_two {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+  }
+
+  .shoe,
+  .col_one,.service {
+    margin-bottom: 0;
+  }
+
+  .shoe,
+  .electronics {
+    height: inherit;
   }
 }</style>
