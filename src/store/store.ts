@@ -34,3 +34,17 @@ export const store = createStore({
     }
 
 });
+const unsub = onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // const uid = user.uid;
+        store.commit("authIsReady", true)
+        store.commit("setUser", user)
+    } else {
+        store.commit("authIsReady", false)
+        store.commit("setUser", user)
+    }
+    unsub()
+});
+
