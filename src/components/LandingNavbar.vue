@@ -147,7 +147,7 @@ nav[data-visible="true"] {
         height: auto;
         margin: 0;
         max-width: none;
-        width: 75%;
+        width: 80%;
         justify-content: space-between;
         padding: 0;
         background-color: transparent;
@@ -170,6 +170,7 @@ nav[data-visible="true"] {
         border-bottom: none;
         margin: 0;
         padding: 0;
+        justify-content: center;
     }
     .routes li{
         margin-bottom: 0;

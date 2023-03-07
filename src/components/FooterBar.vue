@@ -96,7 +96,7 @@ footer {
     footer {
         display: flex;
         justify-content: space-between;
-        padding: 1em 5em;
+        padding: 3em;
     }
 
     .footer_links {
