@@ -27,7 +27,6 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
                         <span class="label">Password</span>
                         <input type="password" name="password" class="input" required>
                     </label>
-
                     <input type="submit" value="Get started" class="submit">
                 </form>
             </section>
@@ -104,6 +103,6 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
 }
 @media (min-width:60rem) {
     .signup_container {
-        padding-inline: 5em;
+        padding-inline: 3em;
     }
 }</style>
