@@ -18,7 +18,7 @@ import FooterBar from '@/components/FooterBar.vue';
       </div>
     </section>
     <section class="categories">
-      <h2>Browse categories of<span class="store">the store</span> </h2>
+      <h2 class="cate_title">Browse categories of <span class="store">the store</span> </h2>
       <div class="category">
         <div class="col_one">
           <div class="bg_img fashion">
@@ -113,10 +113,13 @@ import FooterBar from '@/components/FooterBar.vue';
 
 .col_one,
 .fashion,
-.shoe {
+.shoe,.cate_title {
   margin-bottom: 1em;
 }
-
+.cate_title,.store{
+  font-weight: 500;
+  text-transform: capitalize;
+}
 .bg_img {
   background-position: center;
   background-repeat: no-repeat;
@@ -155,12 +158,12 @@ import FooterBar from '@/components/FooterBar.vue';
 
 .why {
   text-align: center;
-  margin: 1em 0;
+  margin: 3em 0;
 }
 .why_q{
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .service{
   margin-bottom: 2em;
@@ -181,12 +184,15 @@ import FooterBar from '@/components/FooterBar.vue';
   font-size: 18px;
   font-weight: 500;
 }
+.store{
+  display: block;
+
+}
 
 @media (min-width:60rem) {
   .landing {
     padding-inline: 5em;
   }
-
   .title {
     font-size: 54px;
     line-height: 60px;
