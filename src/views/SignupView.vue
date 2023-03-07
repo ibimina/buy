@@ -17,11 +17,11 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
                 <form>
                     <label class="label_wrap">
                         <span class="label">Username</span>
-                        <input type="text" name="username" class="input" required>
+                        <input type="text" name="username" class="input" required autocomplete="nickname">
                     </label>
                     <label class="label_wrap">
                         <span class="label">Email</span>
-                        <input type="email" name="email" class="input" required>
+                        <input type="email" name="email" class="input" required autocomplete="email">
                     </label>
                     <label class="label_wrap">
                         <span class="label">Password</span>
