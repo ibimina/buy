@@ -20,10 +20,10 @@
         </ul>
         <section class="contact">
             <div class="socials">
-                <div class="social fb"> <img src="/images/facebook.png" alt="facebook"></div>
-                <div class="social gen"> <img src="/images/instagram.png" alt="instagram"></div>
-                <div class="social gen">
-                    <img src="/images/twitter.png" alt="twitter">
+                <div class="social"> <img src="/images/facebook.png" alt="facebook" class="fb"></div>
+                <div class="social"> <img src="/images/instagram.png" alt="instagram" class="gen"></div>
+                <div class="social">
+                    <img src="/images/twitter.png" alt="twitter" class="gen">
                 </div>
             </div>
             <div class="location">
@@ -44,9 +44,6 @@ footer {
     padding: 1em;
 }
 
-.location img,.gen {
-    width: 20px;
-}
 
 .social {
     background-color: #639599;
@@ -58,6 +55,10 @@ footer {
     align-items: center;
     justify-content: center;
 }
+.location img,.gen {
+    width: 20px;
+}
+
 .fb{
     width: 13px;
 }
@@ -85,5 +86,8 @@ footer {
 
 .sub {
     margin-top: 0.5em;
+}
+@media (min-width:60rem) {
+    
 }
 </style>
