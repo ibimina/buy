@@ -1,6 +1,18 @@
 <script setup lang="ts">
+import { useStore } from 'vuex';
 import FooterBar from '@/components/FooterBar.vue';
 import LandingNavbar from '@/components/LandingNavbar.vue';
+import { ref } from 'vue';
+
+const store = useStore()
+const form = ref({password:"",email:"",username:""})
+const signUpUser=(e:Event) =>{
+    e.preventDefault()
+    store.dispatch('signUp',form.value)  
+    
+} 
+
+
 </script>
 
 
@@ -14,18 +26,18 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
                     <p class="center light">Sign up now to get started with an account</p>
                 </div>
 
-                <form>
+                <form @submit="signUpUser" >
                     <label class="label_wrap">
                         <span class="label">Username</span>
-                        <input type="text" name="username" class="input" required autocomplete="nickname">
+                        <input type="text" name="username" class="input" v-model="form.username" required autocomplete="nickname">
                     </label>
                     <label class="label_wrap">
                         <span class="label">Email</span>
-                        <input type="email" name="email" class="input" required autocomplete="email">
+                        <input type="email" name="email" class="input" v-model="form.email" required autocomplete="email">
                     </label>
                     <label class="label_wrap">
                         <span class="label">Password</span>
-                        <input type="password" name="password" class="input" required>
+                        <input type="password" name="password" v-model="form.password" class="input" required>
                     </label>
                     <input type="submit" value="Get started" class="submit">
                 </form>
