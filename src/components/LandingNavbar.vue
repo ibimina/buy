@@ -120,6 +120,7 @@ nav[data-visible="true"] {
     margin: auto;
     padding: 0.5em;
     transition: all 0.2s ease-in-out;
+    width: max-content;
 }
 
 .signup a {
@@ -137,7 +138,7 @@ nav[data-visible="true"] {
 }
 
 
-@media (min-width:60rem) {
+@media (min-width:40rem) {
     nav {
         position: relative;
         top: auto;
@@ -146,7 +147,7 @@ nav[data-visible="true"] {
         height: auto;
         margin: 0;
         max-width: none;
-        width: 70%;
+        width: 75%;
         justify-content: space-between;
         padding: 0;
         background-color: transparent;
@@ -168,6 +169,10 @@ nav[data-visible="true"] {
         gap: 3em;
         border-bottom: none;
         margin: 0;
+        padding: 0;
+    }
+    .routes li{
+        margin-bottom: 0;
     }
 
     .sigin_wrapper {
@@ -179,5 +184,8 @@ nav[data-visible="true"] {
 
     .mobile_nav {
         display: none;
+    }
+    .signup,.sigin_wrapper li{
+        margin: 0;
     }
 }</style>
