@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <ul>
+        <ul class="footer_links">
             <li class="hd">Shop by Category
                 <ul class="sub">
                     <li class="grey">Skincare</li>
@@ -55,18 +55,22 @@ footer {
     align-items: center;
     justify-content: center;
 }
-.location img,.gen {
+
+.location img,
+.gen {
     width: 20px;
 }
 
-.fb{
+.fb {
     width: 13px;
 }
+
 .location {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 0.5em;
+    gap: 1em;
 }
 
 .socials {
@@ -87,7 +91,29 @@ footer {
 .sub {
     margin-top: 0.5em;
 }
+
 @media (min-width:60rem) {
-    
-}
-</style>
+    footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em 5em;
+    }
+
+    .footer_links {
+        display: flex;
+        gap: 3em;
+    }
+
+    .hd {
+        text-align: left;
+    }
+
+    .socials,
+    .location {
+        justify-content: flex-end;
+    }
+
+    .contact {
+        text-align: right;
+    }
+}</style>
