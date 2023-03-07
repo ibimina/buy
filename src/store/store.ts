@@ -9,5 +9,14 @@ export const store = createStore({
             user: null
         }
     },
+    mutations: {
+        setUser(state, payload) {
+            state.user = payload
+        },
+        setAuthIsReady(state, payload) {
+            state.authIsReady = payload
+        }
+
+    }
 });
 
