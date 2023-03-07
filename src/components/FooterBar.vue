@@ -1,33 +1,35 @@
 <template>
     <footer>
         <ul>
-            <li>Shop by Category
-                <ul>
-                    <li>Skincare</li>
-                    <li>shoes</li>
-                    <li>Electronics</li>
-                    <li>Handbags</li>
-                    <li>Eyewear</li>
+            <li class="hd">Shop by Category
+                <ul class="sub">
+                    <li class="grey">Skincare</li>
+                    <li class="grey">shoes</li>
+                    <li class="grey">Electronics</li>
+                    <li class="grey">Handbags</li>
+                    <li class="grey">Eyewear</li>
                 </ul>
             </li>
-            <li>About
-                <ul>
-                    <li>Contact Us</li>
-                    <li>About Us</li>
+            <li class="hd">About
+                <ul class="sub">
+                    <li class="grey">Contact Us</li>
+                    <li class="grey">About Us</li>
                 </ul>
             </li>
             <li>Policy</li>
         </ul>
         <section class="contact">
             <div class="socials">
-                <img src="/images/facebook.png" alt="facebook" class="social">
-                <img src="/images/instagram.png" alt="instagram" class="social">
-                <img src="/images/twitter.png" alt="twitter" class="social">
+                <div class="social fb"> <img src="/images/facebook.png" alt="facebook"></div>
+                <div class="social gen"> <img src="/images/instagram.png" alt="instagram"></div>
+                <div class="social gen">
+                    <img src="/images/twitter.png" alt="twitter">
+                </div>
             </div>
             <div class="location">
                 <img src="/images/location.png" alt="location"> <span>Nigeria</span>
             </div>
-            <div class="copyright">
+            <div class="copyright grey">
                 © 2023 | ibimina All Rights Reserved
             </div>
         </section>
@@ -35,13 +37,53 @@
 </template>
 
 <style scoped>
-.social{
-width: 20px;
+footer {
+    background-color: #1B4B66;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
 }
-.socials{
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 1em;
+
+.location img,.gen {
+    width: 20px;
+}
+
+.social {
+    background-color: #639599;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin: 1em 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fb{
+    width: 13px;
+}
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5em;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.grey {
+    color: #B6B6B6;
+}
+
+.hd {
+    margin-bottom: 1em;
+}
+
+.sub {
+    margin-top: 0.5em;
 }
 </style>
