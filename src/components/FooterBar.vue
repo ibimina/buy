@@ -92,11 +92,11 @@ footer {
     margin-top: 0.5em;
 }
 
-@media (min-width:60rem) {
+@media (min-width:40rem) {
     footer {
         display: flex;
         justify-content: space-between;
-        padding: 1em 5em;
+        padding: 3em;
     }
 
     .footer_links {
