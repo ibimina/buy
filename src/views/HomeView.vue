@@ -191,7 +191,7 @@ import FooterBar from '@/components/FooterBar.vue';
 
 @media (min-width:60rem) {
   .landing {
-    padding-inline: 5em;
+    padding-inline: 3em;
   }
   .title {
     font-size: 54px;
