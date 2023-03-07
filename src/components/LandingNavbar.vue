@@ -48,25 +48,22 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1em 2em;
-    background-color: #fff;
-}
-
-header a {
-    color: #000;
+    position: relative;
 }
 
 nav {
-    position: absolute;
+    position: fixed;
     max-width: 400px;
+    margin: auto;
     top: 6em;
-    left: 3em;
-    right: 3em;
+    left: 0;
+    right: 0;
     padding: 1em;
     text-align: center;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #e6e2e2;
     transform: translateX(-1000%);
+    width: 90%;
     transition: all 0.5s ease;
 }
 
@@ -93,25 +90,52 @@ nav[data-visible="true"] {
 
 .routes {
     border-bottom: 1px solid grey;
+    padding-bottom: 1em;
 }
-
+.sigin_wrapper{
+    margin-top: 1em;
+}
 .routes li,
 .sigin_wrapper li {
     margin-bottom: 0.5em;
 }
 
+.routes a,
+.sigin_wrapper a {
+    color: #000;
+    font-weight: 500;
+}
+
+.routes a:hover,
+.sigin_wrapper a:hover {
+    color: #639599;
+    border-bottom: 2px solid #639599;
+}
+
 .signup {
-    background-color: hsl(180, 55%, 17%);
+    background-color: #1B4B66;
     border-radius: 12px;
     cursor: pointer;
     width: 30%;
     margin: auto;
     padding: 0.5em;
+    transition: all 0.2s ease-in-out;
 }
 
 .signup a {
     color: #fff;
+    border-bottom: none;
 }
+
+.signup:hover {
+    background-color: #000;
+}
+
+.signup a:hover {
+    border-bottom: none;
+    color: #fff;
+}
+
 
 @media (min-width:60rem) {
     nav {
@@ -120,10 +144,12 @@ nav[data-visible="true"] {
         left: auto;
         transform: translateX(0);
         height: auto;
+        margin: 0;
         max-width: none;
         width: 70%;
         justify-content: space-between;
         padding: 0;
+        background-color: transparent;
     }
 
     nav,
@@ -133,17 +159,22 @@ nav[data-visible="true"] {
         align-items: center;
         gap: 1em;
     }
+    .signup:hover {
+        background-color: #000;
+    }
 
     .routes {
         width: 70%;
-        justify-content: center;
         gap: 3em;
         border-bottom: none;
+        margin: 0;
     }
 
     .sigin_wrapper {
         width: 30%;
         justify-content: flex-end;
+        gap: 2em;
+        margin: 0;
     }
 
     .mobile_nav {
