@@ -7,13 +7,14 @@ import { useRouter } from 'vue-router';
 const store = useStore()
 const form = ref({password:"",email:"",username:""})
 const router = useRouter()
-const signUpUser=(e:Event) =>{
+const signUpUser= (e:Event) =>{
     e.preventDefault()
-    store.dispatch('signUp',form.value)  
+    let form = e.target as HTMLFormElement
+     store.dispatch('signUp',form.value) 
+    form.reset() 
     router.push('/products')
+    
 } 
-
-
 </script>
 
 
