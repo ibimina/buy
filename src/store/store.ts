@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '@/firebase/config';
 
 export const store = createStore({
@@ -31,9 +31,23 @@ export const store = createStore({
                     const errorMessage = error.message;
                     console.log(errorCode, errorMessage)
                 });
+        },
+        signIn(context, { password, email }: { email: string, password: string }) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user)
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode,errorMessage
+                        )
+                });
         }
-    }
-
+    }, 
 });
 const unsub = onAuthStateChanged(auth, (user) => {
     if (user) {
