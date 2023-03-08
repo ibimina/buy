@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import FooterBar from '@/components/FooterBar.vue';
-import LandingNavbar from '@/components/LandingNavbar.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+import FooterBar from '@/components/FooterBar.vue';
+import LandingNavbar from '@/components/LandingNavbar.vue';
+
 const store = useStore()
 const form = ref({password:"",email:"",username:""})
 const router = useRouter()
@@ -39,8 +41,11 @@ const signUpUser= (e:Event) =>{
                     </label>
                     <label class="label_wrap">
                         <span class="label">Password</span>
-                        <input type="password" name="password" v-model="form.password" class="input" required>
-                    </label>
+                        <div class="password_wrapper">
+                            <input type="password" name="password" v-model="form.password" class="input" required>
+                             <img src="/images/eye.svg" alt="open eye" class="eye">
+                        </div>
+                                  </label>
                     <input type="submit" value="Get started" class="submit">
                 </form>
             </section>
@@ -84,7 +89,7 @@ const signUpUser= (e:Event) =>{
 
 .input,
 .submit {
-    padding: 1em 2em;
+    padding: 1em;
     border: none;
     border-radius: 8px;
 }
@@ -93,13 +98,24 @@ const signUpUser= (e:Event) =>{
 .submit,
 .input {
     display: block;
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 
 .label {
     margin-bottom: 0.2em;
     color: #fff;
+}
+.password_wrapper {
+    position: relative;
+}
+
+.eye {
+    position: absolute;
+    top: 0.7em;
+    right: 1em;
+    width: 20px;
+    cursor: pointer;
 }
 
 .submit {
