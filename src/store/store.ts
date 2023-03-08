@@ -43,7 +43,11 @@ export const store = createStore({
             } catch (error) {
                 console.log(error)
             }
-        },
+        }, async logOut(context) {
+            await signOut(auth)
+            context.commit("setUser", null)
+            context.commit("setAuthIsReady", false)
+        }
     },
 });
 const unsub = onAuthStateChanged(auth, (user) => {
