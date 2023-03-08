@@ -24,6 +24,7 @@ export const store = createStore({
                 .then((userCredential) => {
                     const user = userCredential.user;
                     updateProfile(user, { displayName: username })
+                    context.commit('setUser',user)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -38,10 +39,10 @@ const unsub = onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        store.commit("authIsReady", true)
+        store.commit("setAuthIsReady", true)
         store.commit("setUser", user)
     } else {
-        store.commit("authIsReady", false)
+        store.commit("setAuthIsReady", false)
         store.commit("setUser", user)
     }
     unsub()

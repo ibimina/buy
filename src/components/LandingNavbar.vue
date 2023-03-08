@@ -21,7 +21,7 @@ const visible = ref(false)
                     <RouterLink to="/">Home</RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/product">Product</RouterLink>
+                    <RouterLink to="/products">Product</RouterLink>
                 </li>
                 <li>
                     <RouterLink to="/about">About</RouterLink>
