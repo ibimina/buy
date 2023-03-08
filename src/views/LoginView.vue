@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import FooterBar from '@/components/FooterBar.vue';
 import LandingNavbar from '@/components/LandingNavbar.vue';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+
+const store =useStore()
+const form = ref({email:"",password:""})
+const login = (e:Event)=>{
+e.preventDefault()
+store.dispatch("sigIn",form.value)
+}
 </script>
 <template>
     <main class="login_container">
@@ -12,15 +21,15 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
                     <p class="light">Welcome back, please enter your details.</p>
                 </div>
         
-                <form>
+                <form @submit="login">
                     <label class="label">
                         <span class="label_text">Email Address</span>
-                        <input type="email" required class="input">
+                        <input type="email" required class="input" v-model="form.email">
                     </label>
                     <label class="label">
                         <span class="label_text">Password</span>
                         <div class="password_wrapper">
-                            <input type="password" required class="input">
+                            <input type="password" required class="input" v-model="form.password">
                             <img src="/images/eye.svg" alt="open eye" class="eye">
                         </div>
                     </label>
