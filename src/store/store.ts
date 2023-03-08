@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth } from '@/firebase/config';
 
 export const store = createStore({
@@ -16,35 +16,48 @@ export const store = createStore({
         setAuthIsReady(state, payload) {
             state.authIsReady = payload
         }
-
     },
     actions: {
-        signUp(context, { password, email, username }: { email: string, password: string, username: string }) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    updateProfile(user, { displayName: username })
-                    context.commit('setUser',user)
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode, errorMessage)
-                });
+        async signUp(context, { password, email, username }: { email: string, password: string, username: string }) {
+            try {
+                const res = await createUserWithEmailAndPassword(auth, email, password)
+                await updateProfile(res.user, { displayName: username })
+                if (res) {
+                    context.commit("setUser", res.user)
+                } else {
+                    throw new Error("something went wrong");
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async signIn(context, { password, email }: { email: string, password: string }) {
+            try {
+                const res = await signInWithEmailAndPassword(auth, email, password)
+                if (res) {
+                    context.commit("setUser", res.user)
+                    context.commit("setAuthIsReady", true)
+                } else {
+                    throw new Error("could not complete login");
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }, async logOut(context) {
+            await signOut(auth)
+            context.commit("setUser", null)
+            context.commit("setAuthIsReady", false)
         }
-    }
-
+    },
 });
 const unsub = onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
+    if(user){
         store.commit("setAuthIsReady", true)
         store.commit("setUser", user)
-    } else {
+    }else{
         store.commit("setAuthIsReady", false)
         store.commit("setUser", user)
-    }
+    } 
     unsub()
 });
 

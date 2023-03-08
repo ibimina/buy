@@ -7,15 +7,17 @@ import FooterBar from '@/components/FooterBar.vue';
 import LandingNavbar from '@/components/LandingNavbar.vue';
 
 const store = useStore()
-const form = ref({password:"",email:"",username:""})
+const form = ref({ password: "", email: "", username: "" })
 const router = useRouter()
-const signUpUser= (e:Event) =>{
+
+const signUpUser = async (e: Event) => {
     e.preventDefault()
-    let form = e.target as HTMLFormElement
-     store.dispatch('signUp',form.value) 
-    form.reset() 
-    router.push('/products')
-    
+    try {   
+        await store.dispatch('signUp', form.value)
+        router.push('/products')
+    } catch (error) {
+        console.log(error)
+    }
 } 
 </script>
 
@@ -30,10 +32,11 @@ const signUpUser= (e:Event) =>{
                     <p class="center light">Sign up now to get started with an account</p>
                 </div>
 
-                <form @submit="signUpUser" >
+                <form @submit="signUpUser">
                     <label class="label_wrap">
                         <span class="label">Username</span>
-                        <input type="text" name="username" class="input" v-model="form.username" required autocomplete="nickname">
+                        <input type="text" name="username" class="input" v-model="form.username" required
+                            autocomplete="nickname">
                     </label>
                     <label class="label_wrap">
                         <span class="label">Email</span>
@@ -43,9 +46,9 @@ const signUpUser= (e:Event) =>{
                         <span class="label">Password</span>
                         <div class="password_wrapper">
                             <input type="password" name="password" v-model="form.password" class="input" required>
-                             <img src="/images/eye.svg" alt="open eye" class="eye">
+                            <img src="/images/eye.svg" alt="open eye" class="eye">
                         </div>
-                                  </label>
+                    </label>
                     <input type="submit" value="Get started" class="submit">
                 </form>
             </section>
@@ -58,9 +61,11 @@ const signUpUser= (e:Event) =>{
 .signup_container {
     padding: 1em 2em;
 }
-.text_wrap{
+
+.text_wrap {
     margin-bottom: 1em;
 }
+
 .form_con {
     margin: 3em 0;
     min-height: 70vh;
@@ -106,6 +111,7 @@ const signUpUser= (e:Event) =>{
     margin-bottom: 0.2em;
     color: #fff;
 }
+
 .password_wrapper {
     position: relative;
 }
@@ -124,13 +130,16 @@ const signUpUser= (e:Event) =>{
     margin: 2em auto;
     cursor: pointer;
 }
-.bold{
+
+.bold {
     font-weight: 600;
 }
-.light{
+
+.light {
     font-weight: 400;
     line-height: 15px;
 }
+
 @media (min-width:60rem) {
     .signup_container {
         padding-inline: 3em;
