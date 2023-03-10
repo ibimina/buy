@@ -79,6 +79,7 @@ nav[data-visible="true"] {
     height: 16px;
     background-image: url(../assets/icon-menu.svg);
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     cursor: pointer;
 }
