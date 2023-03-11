@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import modalControl from '@/composables/modalControl';
 import { RouterLink } from 'vue-router'
 
-const handleMenu = () => {
-
-    if (visible.value === false) {
-        return visible.value = true;
-    }
-    return visible.value = false;
-}
-const visible = ref(false)
+const {visible,handleModal}= modalControl();
 </script>
 
 <template>
@@ -39,7 +32,7 @@ const visible = ref(false)
                 </li>
             </ul>
         </nav>
-        <button class="mobile_nav" @click="handleMenu" :aria-expanded="visible"></button>
+        <button class="mobile_nav" @click="handleModal" :aria-expanded="visible"></button>
     </header>
 </template>
 
