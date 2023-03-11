@@ -1,42 +1,54 @@
+<script setup lang="ts">
+</script>
+
 <template>
     <header>
         <h1>Buy</h1>
         <input type="search" name="search" placeholder="I'm shopping for" class="bg search">
         <nav class="nav">
             <ul class="links">
-                <li class="bg wishlist"><routerLink to="/wishlist"></routerLink></li>
-                <li class="bg user"><routerLink to="/user"></routerLink></li>              
-                <li class="bg cart"> <routerLink to ="/cart"></routerLink></li>
+                <li class="bg wishlist">
+                    <RouterLink to="/wishlist"></RouterLink>
+                </li>
+                <li class="bg user">
+                    <RouterLink to="/user"></RouterLink>
+                </li>
+                <li class="bg cart">
+                    <RouterLink to="/cart"></RouterLink>
+                </li>
             </ul>
         </nav>
     </header>
 </template>
 
 <style scoped>
-header{
+header {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
     padding: 1em;
 }
-.nav{
+
+.nav {
     grid-column: 5;
 }
 
-.links{
+.links {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 1em;
 }
-.bg{
+
+.bg {
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
-.search{
+
+.search {
     width: auto;
     height: auto;
     display: block;
@@ -48,28 +60,34 @@ header{
     background-position: 1em;
     background-size: 18px;
     background-image: url('../assets/categories/search.svg');
+    margin-top: 1em;
 }
-.wishlist{
+
+.wishlist {
     background-image: url('../assets/categories/icons8-wishlist.png');
 }
-.user{
+
+.user {
     background-image: url('../assets/categories/icons8-user.png');
 }
-.cart{
+
+.cart {
     background-image: url('../assets/categories/icons8-cart.png');
     filter: brightness(0%);
 }
-@media (min-width:60rem){
-    header{
-        grid-template-columns:repeat(12,1fr);
+
+@media (min-width:60rem) {
+    header {
+        grid-template-columns: repeat(12, 1fr);
         gap: 2em;
     }
-.search{
-    grid-column: 8/13;
-    grid-row: 1;
-}
-.nav{
-    grid-column: 13;
-}
-}
-</style>
+
+    .search {
+        grid-column: 8/13;
+        grid-row: 1;
+    }
+
+    .nav {
+        grid-column: 13;
+    }
+}</style>
