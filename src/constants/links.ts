@@ -1,0 +1,22 @@
+const links = [
+  { link: "smartphones", category: "Smartphone" },
+  { link: "skincare", category: "Skincare", },
+  { link: "jewellery", category: "Jewelleryy" },
+  { link: "fragrances", category: "Fragrances" },
+  { link: "womens-dresses", category: "Women dresses" },
+  { link: "mens-shirts", category: "Men shirts" },
+  { link: "womens-shoes", category: "Women shoe" },
+  { link: "mens-shoes", category: "Men shoe" },
+  { link: "laptops", category: "Laptops" },
+  { link: "groceries", category: "Groceries" },
+  { link: "home-decorations", category: "Home decorations" },
+  { link: "furnitures", category: "Furniture" },
+  { link: "automotive", category: "Automotive" },
+  { link: "tops", category: "Tops" },
+  { link: "mens-watches", category: "Mens watches" },
+  { link: "womens-watches", category: "Womens watches" },
+  { link: "sunglasses", category: "Sunglasses" },
+  { link: "motorcycle", category: "Motorcycle" },
+  { link: "lighting", category: "Lighting" },
+]
+export default links;
