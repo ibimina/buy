@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import SignupView from '../views/SignupView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProductsView from '../views/ProductsView.vue'
-import {store} from "../store/store.js"
+import { store } from "../store/store.js"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +20,12 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/CartView.vue'),
+      meta: { auth: true }
     },
     {
       path: '/contact',
@@ -40,11 +46,35 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
+      path: '/products/:id',
+      name: 'product',
+      component: () => import('../views/ProductView.vue'),
+      meta: { auth: true }
+    },
+    {
+      path: '/products/:category',
+      name: 'category',
+      component: () => import('../views/CategoryView.vue'),
+      meta: { auth: true }
+    },
+    {
       path: '/signup',
       name: 'signup',
       component: SignupView,
       meta: { auth: false }
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/UserView.vue'),
+      meta: { auth: true }
+    },
+    {
+      path:'/wishlist',
+      name:'wishlist',
+      component: () => import('../views/WishlistView.vue'),
+      meta: { auth: true }
+    }
   ]
 })
 
