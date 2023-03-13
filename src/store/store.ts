@@ -6,7 +6,8 @@ export const store = createStore({
     state() {
         return {
             authIsReady: false,
-            user: null
+            user: null,
+            cart: [],
         }
     },
     mutations: {
