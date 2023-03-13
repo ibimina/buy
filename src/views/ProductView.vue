@@ -21,7 +21,8 @@ const handleback = () => {
 <template>
 
     <Navbar />
-    <h1>Product</h1>
+    <button @click="handleback">go back</button>
+    <h1><span>{{ product.category }}</span> > <span>{{ product.brand }}</span></h1>
      <p v-if="loading">loading</p>
      <p v-if="error">error</p>
      <ProductDetails :product="product"/>

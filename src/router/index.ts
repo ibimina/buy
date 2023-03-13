@@ -46,13 +46,13 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
-      path: '/products/:id',
+      path: '/product/:id',
       name: 'product',
       component: () => import('../views/ProductView.vue'),
       meta: { auth: true }
     },
     {
-      path: '/products/:category',
+      path: '/category/:category',
       name: 'category',
       component: () => import('../views/CategoryView.vue'),
       meta: { auth: true }

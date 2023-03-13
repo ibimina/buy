@@ -43,44 +43,49 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
 </script>
 <template>
     <div class="product">
-        <img :src="props.product.thumbnail" :alt="props.product.description" class="imgbox">
-        <div class="images">
-            <img v-for="image in props.product.images" :key="image" :src="image" :alt="props.product.description"
-                class="img_view" @click="showSelectedImg($event, image, props.product.description)" />
-            <button class="bg left coral" @click="showPrevImg" aria-label="arrow left"></button> <button
-                class="bg right coral" @click="showNextImg" aria-label="arrow right"></button>
-        </div>
-        <p>{{ props.product.brand }}</p>
-        <p class="name">{{ props.product.title }}</p>
-        <div class="price_wrapper">
-            <p class="price">${{ props.product.price }}</p> <span class="underline">${{ originPrice }}</span> <span
-                class="percent">{{ props.product.discountPercentage }}% OFF </span>
-
-        </div>
-        <div class="flex">
-            <span class="rate">{{ props.product.rating }}</span> <img src="/images/rating.png" alt="golden star"
-                class="rating">
+        <div>
+            <img :src="props.product.thumbnail" :alt="props.product.description" class="imgbox">
+            <div class="images">
+                <img v-for="image in props.product.images" :key="image" :src="image" :alt="props.product.description"
+                    class="img_view" @click="showSelectedImg($event, image, props.product.description)" />
+                <button class="bg left coral" @click="showPrevImg" aria-label="arrow left"></button> <button
+                    class="bg right coral" @click="showNextImg" aria-label="arrow right"></button>
+            </div>
         </div>
         <div>
-            <h3>Product Description</h3>
-            <p class="desc">{{ props.product.description }}</p>
-        </div>
-        <div class="add">
-            <button class="bg minus" aria-label="minus"></button>
-            <span>0</span>
-            <button class="bg plus" aria-label="plus"></button>
-        </div>
-        <div class="w_ccontainer">
-            <div class="wishlist_wrap">
-                <span class="wishlist">wishlist</span>
-                <button class="bg like"></button>
-            </div>
-            <div class="add_to_cart">
-                <button class="bg cart"></button>
-                <span>add to cart</span>
-            </div>
+            <p>{{ props.product.brand }}</p>
+            <p class="name">{{ props.product.title }}</p>
+            <div class="price_wrapper">
+                <p class="price">${{ props.product.price }}</p> <span class="underline">${{ originPrice }}</span> <span
+                    class="percent">{{ props.product.discountPercentage }}% OFF </span>
 
+            </div>
+            <div class="flex">
+                <span class="rate">{{ props.product.rating }}</span> <img src="/images/rating.png" alt="golden star"
+                    class="rating">
+            </div>
+            <div>
+                <h3>Product Description</h3>
+                <p class="desc">{{ props.product.description }}</p>
+            </div>
+            <div class="add">
+                <button class="bg minus" aria-label="minus"></button>
+                <span>0</span>
+                <button class="bg plus" aria-label="plus"></button>
+            </div>
+            <div class="w_ccontainer">
+                <div class="wishlist_wrap">
+                    <span class="wishlist">wishlist</span>
+                    <button class="bg like"></button>
+                </div>
+                <div class="add_to_cart">
+                    <button class="bg cart"></button>
+                    <span>add to cart</span>
+                </div>
+
+            </div>
         </div>
+
     </div>
 </template>
 <style scoped>
@@ -96,7 +101,7 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
 }
 
 .product {
-    max-width: 350px;
+    width: 90%;
     margin: auto;
 }
 
@@ -195,7 +200,8 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
 .wishlist_wrap {
     display: flex;
     padding: 0.8em 0.5em;
-    background-color: #b3b3b3;
+    color: #1B4B66;
+    border: 2px solid #1B4B66;
     border-radius: 8px;
 }
 
@@ -240,6 +246,13 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
 @media (min-width:60rem) {
     .imgbox {
         display: block;
+        height: 60%;
+        border-radius: 8px;
+        box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .add {
+        width: 30%;
     }
 
     .coral {
@@ -248,7 +261,34 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
 
     .img_view {
         display: block;
-        width: 30px;
+        max-width: 100px;
+        height: auto;
         cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .product {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2em;
+        padding: 1em;
+    }
+
+    .images {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        padding: 1em;
+    }
+
+    .wishlist_wrap {
+        width: 100%;
+        justify-content: center;
+        gap: 0.5em;
+    }
+
+    .wishlist {
+        display: block;
     }
 }</style>
