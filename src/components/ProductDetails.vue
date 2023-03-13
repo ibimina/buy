@@ -3,12 +3,13 @@ import OriginalPrice from '@/composables/OriginalPrice';
 import type Product from '@/types/Product';
 import { computed, ref } from 'vue';
 const index = ref(0)
+const quantity = ref(0)
 const props = defineProps<{ product: Product }>();
 const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
 });
 
-const showImg = (e:MouseEvent)=>{
+const showImg = (e: MouseEvent) => {
     let btn = e.target as HTMLButtonElement;
     const images = document.querySelectorAll('.img_view');
     images.forEach((image) => {
@@ -17,12 +18,12 @@ const showImg = (e:MouseEvent)=>{
     });
     let img = images[index.value] as HTMLImageElement;
     img.style.display = 'block';
-    if(btn.classList.contains('left')){
+    if (btn.classList.contains('left')) {
         index.value--;
         if (index.value < 0) {
             index.value = images.length - 1;
         }
-    }else{
+    } else {
         index.value++;
         if (index.value >= images.length) {
             index.value = 0;
@@ -34,6 +35,14 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
     ImgBox.setAttribute('src', src);
     ImgBox.setAttribute('alt', desc);
 
+}
+const handleQuantity = (e: MouseEvent) => {
+    let btn = e.target as HTMLButtonElement;
+    if (btn.classList.contains('plus')) {
+        quantity.value++;
+    } else if(quantity.value > 0) {
+        quantity.value--;
+    }
 }
 </script>
 <template>
@@ -64,9 +73,9 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
                 <p class="desc">{{ props.product.description }}</p>
             </div>
             <div class="add">
-                <button class="bg minus" aria-label="minus"></button>
-                <span>0</span>
-                <button class="bg plus" aria-label="plus"></button>
+                <button class="bg minus" aria-label="minus" @click="handleQuantity"></button>
+                <span>{{ quantity }}</span>
+                <button class="bg plus" aria-label="plus"  @click="handleQuantity"></button>
             </div>
             <div class="w_ccontainer">
                 <div class="wishlist_wrap">
@@ -286,4 +295,5 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
     .wishlist {
         display: block;
     }
-}</style>
+}
+</style>
