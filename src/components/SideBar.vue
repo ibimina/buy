@@ -12,7 +12,7 @@ const { visible, handleModal } = modalControl();
                 <span class="center">All Categories</span>
             </li>
             <li v-for="category in categories" :key="category.category">
-                <routerLink :to="{ name: 'category', params: { category: category.link } }" class="img_con">
+                <routerLink :to="category.link" class="img_con">
                     <img :src="category.img" :alt="category.alt" class="category">
                     <span class="center">{{ category.category }}</span>
                 </routerLink>
@@ -23,7 +23,7 @@ const { visible, handleModal } = modalControl();
         <button @click="handleModal" class="close">close</button>
         <ul>
             <li v-for="link in links" :key="link.category">
-                <routerLink :to="{ name: 'category', params: { category: link.link } }"> {{ link.category }}</routerLink>
+                <routerLink :to="link.link"> {{ link.category }}</routerLink>
             </li>
         </ul>
     </section>
@@ -82,7 +82,6 @@ li {
     .close {
         display: none;
     }
-
     .categories_container {
         display: none;
     }
@@ -90,7 +89,7 @@ li {
     .links {
         position: relative;
         transform: translateX(0);
-        width: auto;
+        width: max-content;
         left: auto;
         height: auto;
 
