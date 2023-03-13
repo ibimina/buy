@@ -8,7 +8,8 @@ const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
 });
 
-const showPrevImg = () => {
+const showImg = (e:MouseEvent)=>{
+    let btn = e.target as HTMLButtonElement;
     const images = document.querySelectorAll('.img_view');
     images.forEach((image) => {
         let img = image as HTMLImageElement;
@@ -16,22 +17,16 @@ const showPrevImg = () => {
     });
     let img = images[index.value] as HTMLImageElement;
     img.style.display = 'block';
-    index.value--;
-    if (index.value < 0) {
-        index.value = images.length - 1;
-    }
-}
-const showNextImg = () => {
-    const images = document.querySelectorAll('.img_view');
-    images.forEach((image) => {
-        let img = image as HTMLImageElement;
-        img.style.display = 'none';
-    });
-    let img = images[index.value] as HTMLImageElement;
-    img.style.display = 'block';
-    index.value++;
-    if (index.value >= images.length) {
-        index.value = 0;
+    if(btn.classList.contains('left')){
+        index.value--;
+        if (index.value < 0) {
+            index.value = images.length - 1;
+        }
+    }else{
+        index.value++;
+        if (index.value >= images.length) {
+            index.value = 0;
+        }
     }
 }
 const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
@@ -48,8 +43,8 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
             <div class="images">
                 <img v-for="image in props.product.images" :key="image" :src="image" :alt="props.product.description"
                     class="img_view" @click="showSelectedImg($event, image, props.product.description)" />
-                <button class="bg left coral" @click="showPrevImg" aria-label="arrow left"></button> <button
-                    class="bg right coral" @click="showNextImg" aria-label="arrow right"></button>
+                <button class="bg left coral" @click="showImg" aria-label="arrow left"></button> <button
+                    class="bg right coral" @click="showImg" aria-label="arrow right"></button>
             </div>
         </div>
         <div>
