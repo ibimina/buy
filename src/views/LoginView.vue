@@ -4,6 +4,7 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import showPassword from '@/composables/Password';
 
 const router = useRouter()
 const store = useStore()
@@ -24,6 +25,7 @@ const login = async (e: Event) => {
         console.log(error)
     }
 }
+
 </script>
 <template>
     <main class="login_container">
@@ -50,7 +52,7 @@ const login = async (e: Event) => {
                         </div>
                         <div class="password_wrapper">
                             <input type="password" required class="input" v-model="form.password">
-                            <img src="/images/eye.svg" alt="open eye" class="eye">
+                            <img src="/images/eye.svg" alt="open eye" class="eye" @click="showPassword">
                         </div>
                     </label>
                     <input type="submit" value="Log in" class="submit">
