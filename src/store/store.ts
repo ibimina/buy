@@ -1,12 +1,16 @@
 import { createStore } from 'vuex';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth } from '@/firebase/config';
+import type Cart from '@/types/Cart';
+import type User from '@/types/User';
+
 
 export const store = createStore({
     state() {
         return {
             authIsReady: false,
-            user: null
+            user: {} as User,
+            cart: [] as Cart[] 
         }
     },
     mutations: {
@@ -16,6 +20,7 @@ export const store = createStore({
         setAuthIsReady(state, payload) {
             state.authIsReady = payload
         }
+
     },
     actions: {
         async signUp(context, { password, email, username }: { email: string, password: string, username: string }) {
@@ -47,7 +52,8 @@ export const store = createStore({
             await signOut(auth)
             context.commit("setUser", null)
             context.commit("setAuthIsReady", false)
-        }
+        },
+        
     },
 });
 const unsub = onAuthStateChanged(auth, (user) => {

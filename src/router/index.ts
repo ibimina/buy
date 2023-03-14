@@ -63,18 +63,14 @@ const router = createRouter({
       component: SignupView,
       meta: { auth: false }
     },
+ 
     {
       path: '/user',
       name: 'user',
       component: () => import('../views/UserView.vue'),
       meta: { auth: true }
     },
-    {
-      path:'/wishlist',
-      name:'wishlist',
-      component: () => import('../views/WishlistView.vue'),
-      meta: { auth: true }
-    }
+    
   ]
 })
 

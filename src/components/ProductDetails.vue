@@ -1,14 +1,20 @@
 <script lang="ts" setup>
 import OriginalPrice from '@/composables/OriginalPrice';
+import { db } from '@/firebase/config';
 import type Product from '@/types/Product';
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 const index = ref(0)
+const quantity = ref(0)
+const store =useStore()
 const props = defineProps<{ product: Product }>();
 const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
 });
 
-const showPrevImg = () => {
+const showImg = (e: MouseEvent) => {
+    let btn = e.target as HTMLButtonElement;
     const images = document.querySelectorAll('.img_view');
     images.forEach((image) => {
         let img = image as HTMLImageElement;
@@ -16,22 +22,16 @@ const showPrevImg = () => {
     });
     let img = images[index.value] as HTMLImageElement;
     img.style.display = 'block';
-    index.value--;
-    if (index.value < 0) {
-        index.value = images.length - 1;
-    }
-}
-const showNextImg = () => {
-    const images = document.querySelectorAll('.img_view');
-    images.forEach((image) => {
-        let img = image as HTMLImageElement;
-        img.style.display = 'none';
-    });
-    let img = images[index.value] as HTMLImageElement;
-    img.style.display = 'block';
-    index.value++;
-    if (index.value >= images.length) {
-        index.value = 0;
+    if (btn.classList.contains('left')) {
+        index.value--;
+        if (index.value < 0) {
+            index.value = images.length - 1;
+        }
+    } else {
+        index.value++;
+        if (index.value >= images.length) {
+            index.value = 0;
+        }
     }
 }
 const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
@@ -40,16 +40,58 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
     ImgBox.setAttribute('alt', desc);
 
 }
+const handleQuantity = (e: MouseEvent) => {
+    let btn = e.target as HTMLButtonElement;
+    if (btn.classList.contains('plus')) {
+        quantity.value++;
+    } else if(quantity.value > 0) {
+        quantity.value--;
+    }
+}
+const addToCart = async () =>{
+    const product = {
+        id: props.product.id,
+        title: props.product.title,
+        price: props.product.price,
+        discountPercentage: props.product.discountPercentage,
+        thumbnail: props.product.thumbnail,
+        quantity: quantity.value,
+        uid: store.state.user.uid,
+        brand: props.product.brand
+    }
+   
+
+
+    const carts = await getDocs(query(collection(db, 'carts'), where('uid', '==', store.state.user.uid)));
+ if (carts.empty) {
+     addDoc(collection(db, 'carts'), product);
+ } else {
+    carts.forEach((docs) => {
+            // doc.data() is never undefined for query doc snapshots
+            const existingCart = docs.data().id === product.id
+            if (existingCart) {
+                setDoc(doc(db, 'carts', docs.id), { ...docs.data(), quantity: docs.data().quantity + quantity.value });
+            } else {
+                addDoc(collection(db, 'carts'), product);
+            }
+        });
+ }
+    
+}
+
+
+
 </script>
 <template>
     <div class="product">
+
         <div>
             <img :src="props.product.thumbnail" :alt="props.product.description" class="imgbox">
             <div class="images">
                 <img v-for="image in props.product.images" :key="image" :src="image" :alt="props.product.description"
                     class="img_view" @click="showSelectedImg($event, image, props.product.description)" />
-                <button class="bg left coral" @click="showPrevImg" aria-label="arrow left"></button> <button
-                    class="bg right coral" @click="showNextImg" aria-label="arrow right"></button>
+                <button class="bg left coral" @click="showImg" aria-label="arrow left"></button> <button
+                    class="bg right coral" @click="showImg" aria-label="arrow right"></button>
             </div>
         </div>
         <div>
@@ -69,16 +111,16 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
                 <p class="desc">{{ props.product.description }}</p>
             </div>
             <div class="add">
-                <button class="bg minus" aria-label="minus"></button>
-                <span>0</span>
-                <button class="bg plus" aria-label="plus"></button>
+                <button class="bg minus" aria-label="minus" @click="handleQuantity"></button>
+                <span>{{ quantity }}</span>
+                <button class="bg plus" aria-label="plus"  @click="handleQuantity"></button>
             </div>
             <div class="w_ccontainer">
                 <div class="wishlist_wrap">
                     <span class="wishlist">wishlist</span>
                     <button class="bg like"></button>
                 </div>
-                <div class="add_to_cart">
+                <div class="add_to_cart" @click="addToCart()">
                     <button class="bg cart"></button>
                     <span>add to cart</span>
                 </div>
@@ -291,4 +333,5 @@ const showSelectedImg = (e: MouseEvent, src: string, desc: string) => {
     .wishlist {
         display: block;
     }
-}</style>
+}
+</style>
