@@ -8,11 +8,17 @@ import { useStore } from 'vuex';
 const router = useRouter()
 const store = useStore()
 const form = ref({ email: "", password: "" })
-
+const errorValue = ref("")
 const login = async (e: Event) => {
     e.preventDefault()
     try {
         await store.dispatch("signIn", form.value)
+        if (store.state.authError == "Firebase: Error (auth/wrong-password).") {
+            console.log(store.state.authError)
+            errorValue.value = "Wrong password"
+        } else if (store.state.authError == "Firebase: Error (auth/user-not-found)") {
+            errorValue.value = "User not found"
+        }
         router.push('/products')
     } catch (error) {
         console.log(error)
@@ -31,11 +37,17 @@ const login = async (e: Event) => {
 
                 <form @submit="login">
                     <label class="label">
-                        <span class="label_text">Email Address</span>
+                        <div class="flex">
+                            <span class="label_text">Email Address</span>
+                            <span v-if="errorValue.includes('User')" class="red">{{ errorValue }}</span>
+                        </div>
+
                         <input type="email" required class="input" v-model="form.email" autocomplete="email">
                     </label>
                     <label class="label">
-                        <span class="label_text">Password</span>
+                        <div class="flex"><span class="label_text">Password</span>
+                            <span v-if="errorValue.includes('Wrong')" class="red">{{ errorValue }}</span>
+                        </div>
                         <div class="password_wrapper">
                             <input type="password" required class="input" v-model="form.password">
                             <img src="/images/eye.svg" alt="open eye" class="eye">
@@ -43,7 +55,7 @@ const login = async (e: Event) => {
                     </label>
                     <input type="submit" value="Log in" class="submit">
                 </form>
-                <p class="signup">Don't have an account? <RouterLink to="/signup">Sign Up</RouterLink>
+                <p class="signup">Don't have an account? <routerLink to="/signup">Sign Up</routerLink>
                 </p>
 
             </div>
@@ -56,6 +68,19 @@ const login = async (e: Event) => {
 <style scoped>
 .login_container {
     padding: 1em 2em;
+}
+
+.flex {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: space-between;
+}
+
+.red {
+    color: red;
+    display: block;
+    width: 100%;
+    text-align: end;
 }
 
 .login_wrapper {
