@@ -58,6 +58,12 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
+      path: "/search",
+      name: "search",
+      component: () => import('../views/SearchView.vue'),
+      meta: { auth: true }
+    },
+    {
       path: '/signup',
       name: 'signup',
       component: SignupView,
@@ -70,7 +76,6 @@ const router = createRouter({
       component: () => import('../views/UserView.vue'),
       meta: { auth: true }
     },
-   
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
