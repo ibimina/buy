@@ -2,6 +2,7 @@
 import FetchProducts from '@/composables/FetchProducts';
 import { onMounted } from 'vue';
 import DealProductCard from './DealProductCard.vue';
+import LoadingImg from './LoadingImg.vue';
 const props = defineProps<{
     title: string
     url: string
@@ -16,7 +17,7 @@ onMounted(() => {
 <template>
     <div class="promotions">
         <p class="promo_title">{{ props.title }}</p>
-        <p v-if="loading">loading...</p>
+        <div v-if="loading"><LoadingImg/></div>
         <p v-if="error">error...</p>
         <ul class="promotion_products">
             <li v-for="product in products" :key="product.id" class="card">
