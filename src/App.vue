@@ -1,9 +1,6 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
 
-</script>
 
 <template>
-  <RouterView />
+  <router-view  :key="$route.fullPath" />
 </template>
 

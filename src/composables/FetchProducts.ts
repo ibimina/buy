@@ -10,7 +10,7 @@ const FetchProducts = (url: string) => {
         rating:number
         discountPercentage :number
     }[]
-    const products = ref<Product|null>([])
+    const products = ref([] as Product)
     const error = ref(null)
     const loading = ref(false)
     const baseUrl = 'https://dummyjson.com'
@@ -29,6 +29,7 @@ const FetchProducts = (url: string) => {
             loading.value = false
         }
     }
+ 
     return { products, error, loading, fetchData }
 }
 export default FetchProducts
