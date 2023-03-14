@@ -20,7 +20,6 @@ const signUpUser = async (e: Event) => {
         if(store.state.user) {
           return  router.push('/products')
         }else if(store.state.authError =="Firebase: Error (auth/email-already-in-use).") {
-            console.log("Email already in use")
             errorMsg.value = "Email already in use"
         }else if(store.state.authError == "Firebase: Password should be at least 6 characters (auth/weak-password)."){
              errorMsg.value = "Password should be at least 6 characters"
@@ -66,6 +65,7 @@ const signUpUser = async (e: Event) => {
                         </div>
                     </label>
                     <input type="submit" :disabled="disable" value="Get started" :class="{'dis':disable,'submit':!disable}">
+                <p class="signup">Already have an account? <routerLink to="/login">Login</routerLink></p>
                 </form>
             </section>
         </div>
@@ -141,7 +141,14 @@ const signUpUser = async (e: Event) => {
 .password_wrapper {
     position: relative;
 }
+.signup {
+    text-align: center;
+}
 
+.signup a {
+    color: #1B4B66;
+    font-weight: 700;
+}
 .eye {
     position: absolute;
     top: 0.7em;
