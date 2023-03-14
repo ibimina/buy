@@ -17,7 +17,7 @@ const login = async (e: Event) => {
         if (store.state.authError == "Firebase: Error (auth/wrong-password).") {
             console.log(store.state.authError)
             errorValue.value = "Wrong password"
-        } else if (store.state.authError == "Firebase: Error (auth/user-not-found)") {
+        } else if (store.state.authError == "Firebase: Error (auth/user-not-found).") {
             errorValue.value = "User not found"
         }
         router.push('/products')
