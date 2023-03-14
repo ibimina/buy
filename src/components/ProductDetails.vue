@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import OriginalPrice from '@/composables/OriginalPrice';
+import { db } from '@/firebase/config';
 import type Product from '@/types/Product';
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 const index = ref(0)
 const quantity = ref(0)
+const store =useStore()
 const props = defineProps<{ product: Product }>();
 const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
@@ -44,9 +48,43 @@ const handleQuantity = (e: MouseEvent) => {
         quantity.value--;
     }
 }
+const addToCart = async () =>{
+    const product = {
+        id: props.product.id,
+        title: props.product.title,
+        price: props.product.price,
+        discountPercentage: props.product.discountPercentage,
+        thumbnail: props.product.thumbnail,
+        quantity: quantity.value,
+        uid: store.state.user.uid,
+        brand: props.product.brand
+    }
+   
+
+
+    const carts = await getDocs(query(collection(db, 'carts'), where('uid', '==', store.state.user.uid)));
+ if (carts.empty) {
+     addDoc(collection(db, 'carts'), product);
+ } else {
+    carts.forEach((docs) => {
+            // doc.data() is never undefined for query doc snapshots
+            const existingCart = docs.data().id === product.id
+            if (existingCart) {
+                setDoc(doc(db, 'carts', docs.id), { ...docs.data(), quantity: docs.data().quantity + quantity.value });
+            } else {
+                addDoc(collection(db, 'carts'), product);
+            }
+        });
+ }
+    
+}
+
+
+
 </script>
 <template>
     <div class="product">
+
         <div>
             <img :src="props.product.thumbnail" :alt="props.product.description" class="imgbox">
             <div class="images">
@@ -82,7 +120,7 @@ const handleQuantity = (e: MouseEvent) => {
                     <span class="wishlist">wishlist</span>
                     <button class="bg like"></button>
                 </div>
-                <div class="add_to_cart">
+                <div class="add_to_cart" @click="addToCart()">
                     <button class="bg cart"></button>
                     <span>add to cart</span>
                 </div>
