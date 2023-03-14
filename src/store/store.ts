@@ -33,14 +33,11 @@ export const store = createStore({
                 if (res) {
                     context.commit("setAuthIsReady", true)
                     context.commit("setUser", res.user)
-                    console.log(res.user)
                 } else {
                     throw new Error("something went wrong");
                 }
             } catch (error: any) {
-                console.log(error)
                 context.commit("setAuthError", error.message,error.code)
-                console.log(this.state.authError)
             }
         },
         async signIn(context, { password, email }: { email: string, password: string }) {
@@ -52,8 +49,8 @@ export const store = createStore({
                 } else {
                     throw new Error("could not complete login");
                 }
-            } catch (error) {
-                console.log(error)
+            } catch (error:any) {
+                context.commit("setAuthError", error.message, error.code)
             }
         }, async logOut(context) {
             await signOut(auth)
