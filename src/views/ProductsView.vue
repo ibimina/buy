@@ -10,7 +10,7 @@ import FooterBar from '@/components/FooterBar.vue';
     <section class="wrapper">
         <SideBar />
         <div>
-             <PromotionBox url='/products?limit=6' title="Top rating" />
+            <PromotionBox url='/products?limit=6' title="Top rating" />
             <PromotionBox url='/products/category/fragrances?limit=8' title="Best Deals" />        
             </div>
     </section>
