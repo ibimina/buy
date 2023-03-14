@@ -9,12 +9,23 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
 const store = useStore()
 const form = ref({ password: "", email: "", username: "" })
 const router = useRouter()
+const errorMsg = ref('')
+const disable = ref(false)
 
 const signUpUser = async (e: Event) => {
     e.preventDefault()
-    try {   
+    try { 
+           disable.value = true
         await store.dispatch('signUp', form.value)
-        router.push('/products')
+        if(store.state.user) {
+          return  router.push('/products')
+        }else if(store.state.authError =="Firebase: Error (auth/email-already-in-use).") {
+            console.log("Email already in use")
+            errorMsg.value = "Email already in use"
+        }else if(store.state.authError == "Firebase: Password should be at least 6 characters (auth/weak-password)."){
+             errorMsg.value = "Password should be at least 6 characters"
+        }
+           disable.value = false
     } catch (error) {
         console.log(error)
     }
@@ -39,17 +50,22 @@ const signUpUser = async (e: Event) => {
                             autocomplete="nickname">
                     </label>
                     <label class="label_wrap">
-                        <span class="label">Email</span>
-                        <input type="email" name="email" class="input" v-model="form.email" required autocomplete="email">
+                        <div class="flex"><span class="label">Email</span>
+                            <span v-if="errorMsg.includes('Email')" class="red">{{ errorMsg }}</span>
+                           </div>
+                         <input type="email" name="email" class="input" v-model="form.email" required autocomplete="email">
                     </label>
                     <label class="label_wrap">
-                        <span class="label">Password</span>
+                        <div class="flex"><span class="label">Password</span>
+                            <span v-if="errorMsg.includes('Password')" class="red">{{ errorMsg }}</span>
+                           </div>
+                        
                         <div class="password_wrapper">
-                            <input type="password" name="password" v-model="form.password" class="input" required>
+                             <input type="password" name="password" v-model="form.password" class="input" required>
                             <img src="/images/eye.svg" alt="open eye" class="eye">
                         </div>
                     </label>
-                    <input type="submit" value="Get started" class="submit">
+                    <input type="submit" :disabled="disable" value="Get started" :class="{'dis':disable,'submit':!disable}">
                 </form>
             </section>
         </div>
@@ -60,8 +76,18 @@ const signUpUser = async (e: Event) => {
 <style scoped>
 .signup_container {
     padding: 1em 2em;
+} 
+.red{
+    color:red;
+    display: block;
+    width: 100%;
+    text-align: end;
 }
-
+.flex{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    justify-content:space-between;
+}
 .text_wrap {
     margin-bottom: 1em;
 }
@@ -93,7 +119,7 @@ const signUpUser = async (e: Event) => {
 }
 
 .input,
-.submit {
+.submit,.dis {
     padding: 1em;
     border: none;
     border-radius: 8px;
@@ -101,7 +127,7 @@ const signUpUser = async (e: Event) => {
 
 .label,
 .submit,
-.input {
+.input,.dis {
     display: block;
     width: 100%;
     margin: auto;
@@ -124,13 +150,15 @@ const signUpUser = async (e: Event) => {
     cursor: pointer;
 }
 
-.submit {
+.submit,.dis {
     background-color: #1B4B66;
     color: #fff;
     margin: 2em auto;
     cursor: pointer;
 }
-
+.dis{
+    background-color:#afbec7;;
+}
 .bold {
     font-weight: 600;
 }
