@@ -3,12 +3,17 @@ import OriginalPrice from '@/composables/OriginalPrice';
 import { db } from '@/firebase/config';
 import type Product from '@/types/Product';
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+
 const index = ref(0)
 const quantity = ref(0)
 const store =useStore()
 const props = defineProps<{ product: Product }>();
+
+onMounted(() => {
+  window.screenTop > 0 && window.scrollTo(0, 0);
+})
 const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
 });
@@ -59,9 +64,6 @@ const addToCart = async () =>{
         uid: store.state.user.uid,
         brand: props.product.brand
     }
-   
-
-
     const carts = await getDocs(query(collection(db, 'carts'), where('uid', '==', store.state.user.uid)));
  if (carts.empty) {
      addDoc(collection(db, 'carts'), product);
@@ -76,7 +78,6 @@ const addToCart = async () =>{
             }
         });
  }
-    
 }
 </script>
 <template>
@@ -224,14 +225,6 @@ const addToCart = async () =>{
     margin: 1em 0;
 }
 
-.wishlist_wrap {
-    display: flex;
-    padding: 0.8em 0.5em;
-    color: #1B4B66;
-    border: 2px solid #1B4B66;
-    border-radius: 8px;
-}
-
 .name {
     font-weight: 600;
     color: #474646;
@@ -273,7 +266,8 @@ const addToCart = async () =>{
 @media (min-width:60rem) {
     .imgbox {
         display: block;
-        height: 60%;
+        height: 350px;
+        /* height: 60%; */
         border-radius: 8px;
         box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
     }
@@ -289,7 +283,7 @@ const addToCart = async () =>{
     .img_view {
         display: block;
         max-width: 100px;
-        height: auto;
+        height: 100px;
         cursor: pointer;
         border-radius: 8px;
         box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
