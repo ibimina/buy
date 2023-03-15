@@ -9,11 +9,10 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-
 }
 .rotate {
    animation: rotate 1s linear infinite;
-    width: 60px;
+    width: 80px;
 }
 @keyframes rotate {
     0% {
