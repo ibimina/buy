@@ -52,6 +52,8 @@ const stars = computed(() => {
 .product_img {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
+    height: 200px;
+    width: 100%;
 }
 
 .ratings {
