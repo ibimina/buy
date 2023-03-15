@@ -49,7 +49,15 @@ const router = createRouter({
       path: '/product/:id',
       name: 'product',
       component: () => import('../views/ProductView.vue'),
-      meta: { auth: true }
+      meta: { auth: true },
+      children: [
+        {
+          path: '/product/:id/discounts',
+          name: 'discounts',
+          component: () => import('../components/DiscountSection.vue'),
+          meta: { auth: true }
+        }
+      ]
     },
     {
       path: '/category/:category',
