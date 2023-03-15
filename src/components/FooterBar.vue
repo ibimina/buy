@@ -7,15 +7,20 @@ import links from '@/constants/links';
         <ul class="footer_links">
             <li class="hd">Shop by Category
                 <ul class="sub">
-                <li v-for="link in links" :key="link.category" class="grey">
-                    <routerLink :to="link.link" class="grey"> {{ link.category }}</routerLink>
-                </li>
-                                    </ul>
+                    <li v-for="link in links" :key="link.category" class="grey">
+                        <routerLink :to="link.link" class="grey"> {{ link.category }}</routerLink>
+                    </li>
+                </ul>
             </li>
             <li class="hd">About
                 <ul class="sub">
-                    <li class="grey">Contact Us</li>
-                    <li class="grey">About Us</li>
+                    <li>
+                        <routerLink to="/contact" class="grey">Contact Us</routerLink>
+                    </li>
+                    <li>
+                        <routerLink to="/about" class="grey">About Us</routerLink>
+                    </li>
+
                 </ul>
             </li>
             <li>Policy</li>
