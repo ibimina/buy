@@ -78,13 +78,9 @@ const addToCart = async () =>{
  }
     
 }
-
-
-
 </script>
 <template>
     <div class="product">
-
         <div>
             <img :src="props.product.thumbnail" :alt="props.product.description" class="imgbox">
             <div class="images">
@@ -116,18 +112,12 @@ const addToCart = async () =>{
                 <button class="bg plus" aria-label="plus"  @click="handleQuantity"></button>
             </div>
             <div class="w_ccontainer">
-                <div class="wishlist_wrap">
-                    <span class="wishlist">wishlist</span>
-                    <button class="bg like"></button>
-                </div>
                 <div class="add_to_cart" @click="addToCart()">
                     <button class="bg cart"></button>
                     <span>add to cart</span>
                 </div>
-
             </div>
         </div>
-
     </div>
 </template>
 <style scoped>
@@ -170,6 +160,7 @@ const addToCart = async () =>{
     justify-content: center;
     gap: 1em;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .img_view {
@@ -190,11 +181,6 @@ const addToCart = async () =>{
     background-size: 12px;
     width: 40px;
     height: 40px;
-}
-
-.like {
-    background-image: url('../assets/categories/icons8-wishlist.png');
-
 }
 
 .left {
@@ -226,8 +212,7 @@ const addToCart = async () =>{
     filter: brightness(1000%);
 }
 
-.imgbox,
-.wishlist {
+.imgbox{
     display: none;
 }
 
@@ -317,21 +302,8 @@ const addToCart = async () =>{
         gap: 2em;
         padding: 1em;
     }
-
-    .images {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        padding: 1em;
-    }
-
-    .wishlist_wrap {
-        width: 100%;
-        justify-content: center;
-        gap: 0.5em;
-    }
-
-    .wishlist {
-        display: block;
+    .images{
+        margin: 2em 0;
     }
 }
 </style>
