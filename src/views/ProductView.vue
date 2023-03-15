@@ -21,26 +21,33 @@ const nestedRoute = `/product/${id}/discounts`
     <Navbar />
        <PreviousArr/>
         <div class="flex"><span class="bold">{{ product.category }}</span> 
-            <img src="/images/icon-next.svg" alt="next " class="dir"> 
-            <span class="bold">{{ product.brand }}</span></div>
+            <span class="bold small">{{ product.brand }}</span></div>
         <p v-if="error">error</p> 
         <p v-if="loading"><LoadingImg/></p>
          <ProductDetails :product="product" v-else/>
-         <routerLink :to="nestedRoute">You may also like</routerLink>
+         <routerLink :to="nestedRoute" class="bold nes">Sales</routerLink>
          <router-view></router-view>
     </main>
     
     <FooterBar/>
 </template>
 <style scoped>
-.dir{
-    width: 2em;
-    height: 2em;
+.nes{
+    background-color: rgb(71, 126, 148);
+    border-radius: 8px;
+    padding: 0.5em;
+    color: #fff;
+    margin-bottom: 1em;
+    display: inline-block;
 }
 .bold{
     font-weight: 600;
     font-size: 1.9em;
     text-transform: capitalize;
+}
+.small{
+    font-size: 1.2em;
+    color: rgb(151, 156, 156);
 }
 .proddesc_wrapper{
     padding:1em 2em;
