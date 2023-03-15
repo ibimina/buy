@@ -1,8 +1,11 @@
+<script setup lang="ts">
+import LandingNavbar from '@/components/LandingNavbar.vue';
+import FooterBar from '@/components/FooterBar.vue';
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="about_hero">
+   <LandingNavbar />
   </div>
+ 
+  <FooterBar />
 </template>
-
-<style>
-</style>
