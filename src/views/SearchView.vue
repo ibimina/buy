@@ -30,7 +30,7 @@ onMounted(() => {
         <h1 class="title" v-else>Search Results for <span class="search">"{{ search }}"</span></h1>
         <div v-if="products?.length === 0 && !loading" class="nosearch">
             <div class="search_wrapper">
-                <img src="/images/art (1).png" alt="search mirror">
+                <img src="/images/searchlist.png" alt="search mirror">
                 <p class="whoop">Whoops!</p>
                 <p class="semi">We couldn't find what you're looking for</p>
                 <p class="semi">Try something else</p>
