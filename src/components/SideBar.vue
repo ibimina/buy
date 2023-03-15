@@ -22,7 +22,7 @@ const { visible, handleModal } = modalControl();
     <section class="links" :data-visible="visible">
         <button @click="handleModal" class="close">close</button>
         <ul>
-            <li v-for="link in links" :key="link.category">
+            <li v-for="link in links" :key="link.category" class="link_wrap">
                 <routerLink :to="link.link"> {{ link.category }}</routerLink>
             </li>
         </ul>
@@ -32,7 +32,15 @@ const { visible, handleModal } = modalControl();
 .categories_container {
     margin-top: 1em;
 }
-
+.link_wrap a{
+    color: #9fa2a3;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.link_wrap a:hover{
+    color: #fff;
+}
 .categories {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -69,9 +77,11 @@ li {
     height: 100vh;
     transform: translateX(-100%);
     transition: all 0.5s ease;
-    background-color: #eaf4f5;
+    background-color: #354343;
     z-index: 100;
     padding: 1em;
+    border-radius: 8px;
+    height: min-content;
 }
 
 .links[data-visible="true"] {
@@ -91,7 +101,7 @@ li {
         transform: translateX(0);
         width: max-content;
         left: auto;
-        height: auto;
+        height: max-content;
 
     }
 }</style>

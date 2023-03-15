@@ -10,7 +10,8 @@ export const store = createStore({
         return {
             authIsReady: false,
             user: {} as User,
-            cart: [] as Cart[] 
+            cart: [] as Cart[],
+            authError: null
         }
     },
     mutations: {
@@ -19,8 +20,10 @@ export const store = createStore({
         },
         setAuthIsReady(state, payload) {
             state.authIsReady = payload
-        }
-
+        },
+        setAuthError(state, payload) {
+            state.authError = payload
+        },
     },
     actions: {
         async signUp(context, { password, email, username }: { email: string, password: string, username: string }) {
@@ -28,12 +31,13 @@ export const store = createStore({
                 const res = await createUserWithEmailAndPassword(auth, email, password)
                 await updateProfile(res.user, { displayName: username })
                 if (res) {
+                    context.commit("setAuthIsReady", true)
                     context.commit("setUser", res.user)
                 } else {
                     throw new Error("something went wrong");
                 }
-            } catch (error) {
-                console.log(error)
+            } catch (error: any) {
+                context.commit("setAuthError", error.message,error.code)
             }
         },
         async signIn(context, { password, email }: { email: string, password: string }) {
@@ -45,25 +49,25 @@ export const store = createStore({
                 } else {
                     throw new Error("could not complete login");
                 }
-            } catch (error) {
-                console.log(error)
+            } catch (error:any) {
+                context.commit("setAuthError", error.message, error.code)
             }
         }, async logOut(context) {
             await signOut(auth)
             context.commit("setUser", null)
             context.commit("setAuthIsReady", false)
         },
-        
+
     },
 });
 const unsub = onAuthStateChanged(auth, (user) => {
-    if(user){
+    if (user) {
         store.commit("setAuthIsReady", true)
         store.commit("setUser", user)
-    }else{
+    } else {
         store.commit("setAuthIsReady", false)
         store.commit("setUser", user)
-    } 
+    }
     unsub()
 });
 

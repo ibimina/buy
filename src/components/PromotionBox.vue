@@ -2,6 +2,7 @@
 import FetchProducts from '@/composables/FetchProducts';
 import { onMounted } from 'vue';
 import DealProductCard from './DealProductCard.vue';
+import LoadingImg from './LoadingImg.vue';
 const props = defineProps<{
     title: string
     url: string
@@ -16,7 +17,7 @@ onMounted(() => {
 <template>
     <div class="promotions">
         <p class="promo_title">{{ props.title }}</p>
-        <p v-if="loading">loading...</p>
+        <div v-if="loading"><LoadingImg/></div>
         <p v-if="error">error...</p>
         <ul class="promotion_products">
             <li v-for="product in products" :key="product.id" class="card">
@@ -27,9 +28,7 @@ onMounted(() => {
                   <DealProductCard v-if="product.price <= 200 && props.title === 'Best Deals'" 
                         :title="product.title" :thumbnail="product.thumbnail" :description="product.description"
                         :price="product.price" :id="product.id" />
-                </routerLink>
-
-                 
+                </routerLink>         
             </li>
           
         </ul>
@@ -37,10 +36,12 @@ onMounted(() => {
 </template>
 <style scoped>
 .promotions {
-    overflow-x: scroll;
     padding: 1em;
 }
-
+.card a{
+    text-decoration: none;
+    color: black;
+}
 .promo_title {
     font-weight: 700;
     font-size: 2em;
@@ -51,6 +52,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(6, 250px);
     gap: 1em;
+     overflow-x: scroll;
 }
 
 .card {
@@ -67,6 +69,7 @@ onMounted(() => {
     }
     .promotion_products{
     grid-template-columns: repeat(4,1fr);
+    overflow-x: hidden;
 }
 }
 

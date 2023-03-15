@@ -2,8 +2,7 @@ import type Product from "@/types/Product"
 import { ref } from "vue"
 
 const FetchProduct = (url: string) => {
-    const product = ref<Product>({ id: 0, 
-        title: '', price: 0, thumbnail: '', description: '', rating: 0, discountPercentage: 0, brand: '', category: '', stock: 0, images: [] })
+    const product = ref({} as Product)
     const error = ref(null)
     const loading = ref(false)
     const baseUrl = 'https://dummyjson.com'

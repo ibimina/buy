@@ -1,20 +1,32 @@
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
+import PreviousArr from '@/components/PreviousArr.vue';
 import getCart from '@/composables/Collections';
+
 import { useStore } from 'vuex';
 const store = useStore()
-const {cartLength,cartProducts,subTotal}=getCart(store.state.user.uid)
+const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
 
 </script>
 <template>
-    <NavBar />
-    <h1 class="my_cart">My Cart</h1>
-    <div v-if="cartLength === 0">
-        empty cart
+    <div class="cart_container">
+
     </div>
-    <div class="cart_wrapper">
-    <div v-for="product in cartProducts" :key="product.id" class="padd product">
+    <div class="flex">
+        <PreviousArr />
+        <h1 class="my_cart">My Bag</h1>
+    </div>
+
+    <div v-if="cartLength === 0" class="emty_wrapper">
+        <div class="empty_msg">
+            <img src="/images/art.png" alt="empty cart" class="empty_cart">
+            <p>You haven't added any item. Start shopping to make your bag bloom
+            </p>
+        </div>
+        <routerLink to="/products" class="shopping">Continue Shopping</routerLink>
+    </div>
+    <div class="cart_wrapper" v-if="cartLength > 0">
+        <div v-for="product in cartProducts" :key="product.id" class="padd product">
             <div class="mar order_details">
                 <img :src="product.thumbnail" :alt="product.brand" class="cart_img">
                 <div>
@@ -39,7 +51,7 @@ const {cartLength,cartProducts,subTotal}=getCart(store.state.user.uid)
             </div>
         </div>
         <div class="order_summary">
-           <h2>Order Summary</h2>
+            <h2>Order Summary</h2>
             <p>Subtotal: ${{ subTotal }}</p>
             <p>Delivery Fee: $0</p>
             <p>Grand total: ${{ subTotal }}</p>
@@ -52,74 +64,114 @@ const {cartLength,cartProducts,subTotal}=getCart(store.state.user.uid)
     <FooterBar />
 </template>
 <style scoped>
-.my_cart{
-    padding: 0.5em;
-}
-.cart_wrapper{
+.emty_wrapper {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    gap: 1em;
     padding: 1em;
 }
-.mar{
+
+.empty_msg {
+    max-width: 350px;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    padding: 3em;
+}
+
+.cart_wrapper {
+    padding: 1em;
+}
+
+.shopping {
+    padding: 1em;
+    background-color: #2f6786;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    margin: 1em auto;
+    color: white;
+}
+
+.mar {
     margin-bottom: 0.2em;
 }
-.order_summary{
+
+.order_summary {
     border-radius: 10px;
 }
+
 .order_details {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 1em;
 }
+
 .cart_img {
 
     height: 100px;
     object-fit: cover;
     border-radius: 10px;
 }
-.price_wrapper{
+
+.price_wrapper {
     margin-bottom: 1em;
 }
-.order_btnwrap{
+
+.order_btnwrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
     margin: 1em 0;
 
 }
-.order_btnwrap button{
-    padding:1em;
+
+.order_btnwrap button {
+    padding: 1em;
     border-radius: 10px;
     border: none;
 }
- .wishlist_rem{
-        display: flex;
-       gap: 1em;
-    }
-.wishlist_rem button{
-    padding:0.5em 1em;
+
+.wishlist_rem {
+    display: flex;
+    gap: 1em;
+}
+
+.wishlist_rem button {
+    padding: 0.5em 1em;
     border-radius: 10px;
     border: none;
 }
+
 @media (min-width:40rem) {
-    .order_btnwrap{
+    .order_btnwrap {
         width: 50%;
     }
-    .cart_wrapper{
+
+    .cart_wrapper {
         display: grid;
         grid-template-columns: 2fr 1fr;
     }
-    .mar{
+
+    .mar {
         margin-bottom: 0;
     }
-    .product{
+
+    .product {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-    .price_wrapper{
+
+    .price_wrapper {
         display: flex;
     }
-    .order_btnwrap{
+
+    .order_btnwrap {
         width: 100%;
     }
-   
-}
-</style>
+
+}</style>

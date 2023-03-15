@@ -86,12 +86,9 @@ header {
      width: 100%;
 }
 .search {
-
     width: 100%;
     height: 100%;
     display: block;
-   
-
     padding: 1em 1em 1em 3em;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -116,7 +113,9 @@ header {
         grid-column: 8/13;
         grid-row: 1;
     }
-
+.search{
+    margin-top: 0;
+}
     .nav {
         grid-column: 13;
     }
