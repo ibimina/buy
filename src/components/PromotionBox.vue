@@ -28,9 +28,7 @@ onMounted(() => {
                   <DealProductCard v-if="product.price <= 200 && props.title === 'Best Deals'" 
                         :title="product.title" :thumbnail="product.thumbnail" :description="product.description"
                         :price="product.price" :id="product.id" />
-                </routerLink>
-
-                 
+                </routerLink>         
             </li>
           
         </ul>
@@ -38,10 +36,12 @@ onMounted(() => {
 </template>
 <style scoped>
 .promotions {
-    overflow-x: scroll;
     padding: 1em;
 }
-
+.card a{
+    text-decoration: none;
+    color: black;
+}
 .promo_title {
     font-weight: 700;
     font-size: 2em;
@@ -52,6 +52,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(6, 250px);
     gap: 1em;
+     overflow-x: scroll;
 }
 
 .card {
@@ -68,6 +69,7 @@ onMounted(() => {
     }
     .promotion_products{
     grid-template-columns: repeat(4,1fr);
+    overflow-x: hidden;
 }
 }
 
