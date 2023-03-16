@@ -17,7 +17,7 @@ const {visible,handleModal}= modalControl();
                     <RouterLink to="/products">Product</RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/about">About</RouterLink>
+                    <RouterLink to="/about">Developer</RouterLink>
                 </li>
                 <li>
                     <RouterLink to="/contact">Contact</RouterLink>
