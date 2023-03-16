@@ -18,7 +18,7 @@ import links from '@/constants/links';
                         <routerLink to="/contact" class="grey">Contact Us</routerLink>
                     </li>
                     <li>
-                        <routerLink to="/about" class="grey">About Us</routerLink>
+                        <routerLink to="/about" class="grey">Developer</routerLink>
                     </li>
 
                 </ul>
