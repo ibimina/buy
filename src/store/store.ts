@@ -1,8 +1,9 @@
 import { createStore } from 'vuex';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { auth } from '@/firebase/config';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateEmail, updateProfile } from "firebase/auth";
+import { auth, storage } from '@/firebase/config';
 import type Cart from '@/types/Cart';
 import type User from '@/types/User';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 
 export const store = createStore({
@@ -37,7 +38,7 @@ export const store = createStore({
                     throw new Error("something went wrong");
                 }
             } catch (error: any) {
-                context.commit("setAuthError", error.message,error.code)
+                context.commit("setAuthError", error.message, error.code)
             }
         },
         async signIn(context, { password, email }: { email: string, password: string }) {
@@ -49,15 +50,31 @@ export const store = createStore({
                 } else {
                     throw new Error("could not complete login");
                 }
-            } catch (error:any) {
+            } catch (error: any) {
                 context.commit("setAuthError", error.message, error.code)
             }
         }, async logOut(context) {
             await signOut(auth)
             context.commit("setUser", null)
             context.commit("setAuthIsReady", false)
-        },
-
+        }, async updateUser(context, { displayName, photoFile, email }: { displayName: string, photoFile: File, phoneNumber: string, email: string }) {
+          let photoURL =''
+            if(photoFile.name){
+               const uploadpath = `thumbnails/${auth.currentUser?.uid}/${photoFile.name}`
+               const storageRef = ref(storage, uploadpath)
+               await uploadBytes(storageRef, photoFile)
+                photoURL = await getDownloadURL(storageRef)
+                await updateProfile(auth.currentUser!, { photoURL})
+           }
+           if (displayName) {
+               await updateProfile(auth.currentUser!, {  displayName })
+           }
+            if(email){
+                await updateEmail(auth.currentUser!, email)
+            }
+            context.commit("setUser",auth.currentUser )
+            console.log(store.state.user)
+        }
     },
 });
 const unsub = onAuthStateChanged(auth, (user) => {
