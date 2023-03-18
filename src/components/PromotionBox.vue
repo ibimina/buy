@@ -50,6 +50,7 @@ onMounted(() => {
 
 .promotion_products {
     display: grid;
+    max-width: 350px;
     grid-template-columns: repeat(6, 250px);
     gap: 1em;
      overflow-x: scroll;
@@ -61,6 +62,17 @@ onMounted(() => {
     background-color: hsl(155, 26%, 91%);
     border-radius: 8px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+@media (min-width:20rem) {
+    .promotion_products{
+    grid-template-columns: repeat(2,1fr);
+    max-width: none;
+    }
+}
+@media (min-width:40rem) {
+    .promotion_products{
+    grid-template-columns: repeat(3,1fr);
+    }
 }
 @media (min-width:60rem) {
     .promotions{
