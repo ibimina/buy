@@ -21,7 +21,18 @@ const handleImageFile = (e: Event) => {
     form.value.photoFile = img.files![0]
     imgPlaceholder.value = URL.createObjectURL(img.files![0])
 }
-
+const update = async (e: Event) => {
+    e.preventDefault()
+    await store.dispatch('updateUser', form.value)
+    imgPlaceholder.value = ''
+    remount()
+}
+const removeImage = () => {
+    imgPlaceholder.value = ''
+}
+const remount = () => {
+    num.value += 1
+}
 
 </script>
 <template>
