@@ -79,7 +79,6 @@ import LandingNavbar from '@/components/LandingNavbar.vue';
 
 .about_wrapper {
   display: grid;
-
   justify-content: center;
   min-height: 90vh;
   grid-template-rows: max-content;
