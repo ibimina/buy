@@ -44,3 +44,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+View hosted site[Live link](https://buy-two.vercel.app)
