@@ -8,11 +8,11 @@ import { useStore } from 'vuex';
 
 const index = ref(0)
 const quantity = ref(0)
-const store =useStore()
+const store = useStore()
 const props = defineProps<{ product: Product }>();
 
 onMounted(() => {
-  window.screenTop > 0 && window.scrollTo(0, 0);
+    window.screenTop > 0 && window.scrollTo(0, 0);
 })
 const originPrice = computed(() => {
     return OriginalPrice(props.product.price, props.product.discountPercentage)
@@ -49,11 +49,12 @@ const handleQuantity = (e: MouseEvent) => {
     let btn = e.target as HTMLButtonElement;
     if (btn.classList.contains('plus')) {
         quantity.value++;
-    } else if(quantity.value > 0) {
+    } else if (quantity.value > 0) {
         quantity.value--;
     }
 }
-const addToCart = async () =>{
+const dis = ref(false)
+const addToCart = async () => {  
     const product = {
         id: props.product.id,
         title: props.product.title,
@@ -64,20 +65,29 @@ const addToCart = async () =>{
         uid: store.state.user.uid,
         brand: props.product.brand
     }
-    const carts = await getDocs(query(collection(db, 'carts'), where('uid', '==', store.state.user.uid)));
- if (carts.empty) {
-     addDoc(collection(db, 'carts'), product);
- } else {
-    carts.forEach((docs) => {
-            // doc.data() is never undefined for query doc snapshots
-            const existingCart = docs.data().id === product.id
+    if (quantity.value > 0) {
+       dis.value = true  
+        const carts = await getDocs(query(collection(db, 'carts'), where('uid', '==', store.state.user.uid)));
+        if (carts.empty) {
+            addDoc(collection(db, 'carts'), product);
+            dis.value = false
+            return
+        }
+        else {
+            const existingCart = carts.docs.find((docs) => docs.data().id === product.id)
             if (existingCart) {
-                setDoc(doc(db, 'carts', docs.id), { ...docs.data(), quantity: docs.data().quantity + quantity.value });
+                await setDoc(doc(db, 'carts', existingCart.id), { ...existingCart.data(), quantity: existingCart.data().quantity + quantity.value });
+                dis.value = false
+                return
             } else {
                 addDoc(collection(db, 'carts'), product);
+                dis.value = false
+                return
             }
-        });
- }
+        }
+
+    }
+   
 }
 </script>
 <template>
@@ -107,21 +117,27 @@ const addToCart = async () =>{
                 <h3>Product Description</h3>
                 <p class="desc">{{ props.product.description }}</p>
             </div>
-            <div class="add">
-                <button class="bg minus" aria-label="minus" @click="handleQuantity"></button>
-                <span>{{ quantity }}</span>
-                <button class="bg plus" aria-label="plus"  @click="handleQuantity"></button>
-            </div>
-            <div class="w_ccontainer">
-                <div class="add_to_cart" @click="addToCart()">
-                    <button class="bg cart"></button>
-                    <span>add to cart</span>
+            <div class=" w_ccontainer">
+                <div class="add">
+                    <button class="bg minus" aria-label="minus" @click="handleQuantity"></button>
+                    <span>{{ quantity }}</span>
+                    <button class="bg plus" aria-label="plus" @click="handleQuantity"></button>
                 </div>
-            </div>
+                <div class="add_to_cart"  @click="addToCart()" :disabled="dis" :class="{ 'greyy': dis}">
+                <button class="bg cart"></button>
+                <span>add to cart</span>
+                <span class="added">added</span>
+                </div>
+            </div>      
         </div>
     </div>
 </template>
+
 <style scoped>
+.added{
+    display: none;
+}
+
 .bg {
     width: 25px;
     height: 25px;
@@ -132,12 +148,10 @@ const addToCart = async () =>{
     background-color: transparent;
     cursor: pointer;
 }
-
-.product {
-    width: 90%;
-    margin: auto;
+.bg:hover{
+    fill: #000;
+    filter: brightness(1000);
 }
-
 .rating {
     width: 15px;
 }
@@ -146,7 +160,7 @@ const addToCart = async () =>{
     display: flex;
     align-items: center;
     gap: 0.5em;
-    background-color: rgb(228, 227, 227);
+    background-color: rgb(242, 239, 239);
     border-radius: 5px;
     width: max-content;
     padding: 0.2em 0.5em;
@@ -206,6 +220,7 @@ const addToCart = async () =>{
     width: 100%;
     padding: 0.8em 0.5em;
     color: #fff;
+    cursor: pointer;
 }
 
 .cart {
@@ -213,12 +228,11 @@ const addToCart = async () =>{
     filter: brightness(1000%);
 }
 
-.imgbox{
+.imgbox {
     display: none;
 }
 
-.price_wrapper,
-.w_ccontainer {
+.price_wrapper {
     display: flex;
     align-items: center;
     gap: 0.5em;
@@ -245,11 +259,11 @@ const addToCart = async () =>{
 }
 
 .add {
-    background-color: #b3b3b3;
+    background-color: hsl(200, 10%, 69%);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5em;
+    padding:0.8em 0.5em;
     border-radius: 8px;
 }
 
@@ -262,18 +276,33 @@ const addToCart = async () =>{
     background-image: url('../assets/icon-minus.svg');
     background-size: 12px;
 }
-
-@media (min-width:60rem) {
+.greyy {
+    background-color: #9aa0a3;
+    color: #000;
+}
+.greyy .added{
+    display: block;
+    position: absolute;
+    top: -2em;
+    background-color: #000;
+    color: #fff;
+    padding: 0.5em;
+    right: 3em;
+}
+.add_to_cart:hover{
+    background-color: #000;
+}
+@media (min-width:40rem) {
     .imgbox {
         display: block;
         height: 350px;
-        /* height: 60%; */
         border-radius: 8px;
         box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
     }
 
     .add {
-        width: 30%;
+        width: 45%;
+        margin: 0;
     }
 
     .coral {
@@ -296,8 +325,15 @@ const addToCart = async () =>{
         gap: 2em;
         padding: 1em;
     }
-    .images{
+
+    .images {
         margin: 2em 0;
     }
+    .w_ccontainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 1em 0;
 }
-</style>
+
+}</style>
