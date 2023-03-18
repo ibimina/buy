@@ -47,11 +47,8 @@ import links from '@/constants/links';
 footer {
     background-color: #1B4B66;
     color: #fff;
-    text-align: center;
     padding: 1em;
 }
-
-
 .social {
     background-color: #639599;
     width: 38px;
