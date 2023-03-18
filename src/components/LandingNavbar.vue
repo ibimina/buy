@@ -7,7 +7,7 @@ const {visible,handleModal}= modalControl();
 
 <template>
     <header>
-        <h1>Buy</h1>
+        <h1 class="buy">Buy</h1>
         <nav :data-visible="visible">
             <ul class="routes">
                 <li>
@@ -43,7 +43,10 @@ header {
     justify-content: space-between;
     position: relative;
 }
-
+.buy{
+    font-weight: 700;
+    color: #000;
+}
 nav {
     position: fixed;
     max-width: 400px;

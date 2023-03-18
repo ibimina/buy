@@ -18,7 +18,7 @@ const getSeach = (e:Event) => {
 <template>
     <header>
         <routerLink to="/products">
-            <h1>Buy</h1>
+            <h1 class="buy">Buy</h1>
         </routerLink>
         <form @submit="getSeach" class="search_wrapper">
      <input type="search" name="search" v-model="search" placeholder="I'm shopping for" class="bg search">
@@ -47,6 +47,10 @@ header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
+}
+.buy{
+    font-weight: 700;
+color: #000;
 }
 .length{
     position: absolute;
