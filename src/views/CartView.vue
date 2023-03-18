@@ -212,7 +212,7 @@ const removeItem = async(item: DocumentData)=>{
     background-color: #2f6786;
     border-radius: 10px;
     text-align: center;
-    width: 200px;
+    max-width: 200px;
     margin: 1em auto;
     color: white;
 }
