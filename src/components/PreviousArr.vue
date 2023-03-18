@@ -21,7 +21,7 @@ const handleBack = () => {
     border-radius: 50%;
     cursor: pointer;
     filter: brightness(510%);
-    margin-left: 0.5em;
+    margin-top: 1em;
 }
 
 .back:hover {
