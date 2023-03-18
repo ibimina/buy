@@ -7,9 +7,10 @@ import { collection, deleteDoc, doc, getDocs, query, updateDoc, where, type Docu
 import { useStore } from 'vuex';
 const store = useStore()
 const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
-const q = await getDocs(query(collection(db, "carts"), where("uid", "==", store.state.user.uid)));
+
 
 const updateQuantity = async (e: Event, item:DocumentData) => {
+    const q = await getDocs(query(collection(db, "carts"), where("uid", "==", store.state.user.uid)));
     e.preventDefault(); 
     let btn = e.target as HTMLButtonElement;
     if (btn.classList.contains('plus')) {
@@ -29,13 +30,14 @@ const updateQuantity = async (e: Event, item:DocumentData) => {
     }
 
 }
-// const removeItem = async(item: DocumentData)=>{
-//      q.forEach(async (docs) => {
-//         if (docs.data().id === item.id) {
-//             await deleteDoc(doc(db, 'carts', docs.id));
-//         }
-//     });
-// }
+const removeItem = async(item: DocumentData)=>{
+    const q = await getDocs(query(collection(db, "carts"), where("uid", "==", store.state.user.uid)));
+     q.forEach(async (docs) => {
+        if (docs.data().id === item.id) {
+            await deleteDoc(doc(db, 'carts', docs.id));
+        }
+    });
+}
 </script>
 <template>
     <div class="cart_container">
@@ -76,7 +78,7 @@ const updateQuantity = async (e: Event, item:DocumentData) => {
                     </div>
                     <div class="wishlist_rem">
 
-                        <button class="remove" >remove</button>
+                        <button class="remove" @click="removeItem(product)">remove</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@ const updateQuantity = async (e: Event, item:DocumentData) => {
             <p>Grand total: ${{ subTotal }}</p>
             <div class="order_btnwrap">
                 <routerLink to="/checkout" class="cart_link checkout">Place Order</routerLink>
-                <routerLink to="/checkout" class="cart_link shop">Continue shopping</routerLink>
+                <routerLink to="/products" class="cart_link shop">Continue shopping</routerLink>
 
             </div>
         </div>
