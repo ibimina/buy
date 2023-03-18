@@ -13,17 +13,17 @@ onMounted(() => {
 const updateProducts = computed(() => {
     return products.value.slice(startIndex.value, num.value);
 })
+
 const prev = () => {
     startIndex.value = startIndex.value > 0 ? startIndex.value + 10 : startIndex.value;
     num.value = num.value > 10 ? num.value - 10 : num.value;
     window.scrollTo(0, 5);
-    console.log(num.value, updateProducts)
+    
 }
 const next = () => {
     startIndex.value = startIndex.value < 90 ? startIndex.value + 10 : startIndex.value;
     num.value = num.value < 100 ? num.value + 10 : num.value;
     window.scrollTo(0, 200);
-    console.log(num.value, updateProducts)
 }
 </script>
 <template>

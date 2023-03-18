@@ -18,44 +18,49 @@ const nestedRoute = `/product/${id}/discounts`
 </script>
 <template>
     <main class="proddesc_wrapper">
-    <Navbar />
-       <PreviousArr/>
-        <div class="flex"><span class="bold">{{ product.category }}</span> 
-            <span class="bold small">{{ product.brand }}</span></div>
-        <p v-if="error">error</p> 
-        <p v-if="loading"><LoadingImg/></p>
-         <ProductDetails :product="product" v-else/>
-         <routerLink :to="nestedRoute" class="bold nes">Sales</routerLink>
-         <router-view></router-view>
+        <Navbar />
+        <PreviousArr />
+        <div class="flex"><span class="bold">{{ product.category }}</span>
+            <span class="bold small">{{ product.brand }}</span>
+        </div>
+        <p v-if="error">error</p>
+        <p v-if="loading">
+            <LoadingImg />
+        </p>
+        <ProductDetails :product="product" v-else />
+        <routerLink :to="nestedRoute" class="nes">View other products on Sales!!</routerLink>
+        <router-view></router-view>
     </main>
-    
-    <FooterBar/>
+
+    <FooterBar />
 </template>
 <style scoped>
-.nes{
-    background-color: rgb(71, 126, 148);
-    border-radius: 8px;
+.nes {
+    color: rgb(71, 126, 148);
     padding: 0.5em;
-    color: #fff;
     margin-bottom: 1em;
     display: inline-block;
+    text-transform: capitalize;
+    font-weight: 600;
 }
-.bold{
+
+.bold {
     font-weight: 600;
     font-size: 1.9em;
     text-transform: capitalize;
 }
-.small{
+
+.small {
     font-size: 1.2em;
     color: rgb(151, 156, 156);
 }
-.proddesc_wrapper{
-    padding:1em 2em;
+
+.proddesc_wrapper {
+    padding: 1em 2em;
 }
-.flex{
+
+.flex {
     display: flex;
     align-items: center;
     gap: 1em;
-    padding: 0 2em;
-}
-</style>
+}</style>

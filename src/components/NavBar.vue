@@ -47,7 +47,6 @@ header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding: 1em;
 }
 .length{
     position: absolute;

@@ -2,11 +2,37 @@
 import FooterBar from '@/components/FooterBar.vue';
 import PreviousArr from '@/components/PreviousArr.vue';
 import getCart from '@/composables/Collections';
+import { db } from '@/firebase/config';
+import { collection, deleteDoc, doc, getDocs, query,updateDoc, where} from '@firebase/firestore';
 
 import { useStore } from 'vuex';
 const store = useStore()
 const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
+const updateQuantity = async (e: Event, item: any) => {
+    e.preventDefault();
+    const q = await getDocs(query(collection(db, "carts"), where("uid", "==", store.state.user.uid)));
+    let btn = e.target as HTMLButtonElement;
+    if (btn.classList.contains('plus')) {
+        q.forEach(async (docs) => {
+            if (docs.data().id === item.id) {
+                await updateDoc(doc(db, 'carts', docs.id), { ...docs.data(), quantity: docs.data().quantity + 1 });
+            }
+        });
+    } else if (item.quantity > 1) {
+        q.forEach(async (docs) => {
+            if (docs.data().id === item.id) {
+                await updateDoc(doc(db, 'carts', docs.id), { ...docs.data(), quantity: docs.data().quantity - 1 });
+            }
+        });
+    } else {
+        q.forEach(async (docs) => {
+            if (docs.data().id === item.id) {
+                await deleteDoc(doc(db, 'carts', docs.id));
+            }
+        });
+    }
 
+}
 </script>
 <template>
     <div class="cart_container">
@@ -26,30 +52,32 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
         <routerLink to="/products" class="shopping">Continue Shopping</routerLink>
     </div>
     <div class="cart_wrapper" v-if="cartLength > 0">
-        <div v-for="product in cartProducts" :key="product.id" class="padd product">
-            <div class="mar order_details">
-                <img :src="product.thumbnail" :alt="product.brand" class="cart_img">
+        <div>
+            <div v-for="product in cartProducts" :key="product.id" class="padd product">
+                <div class="mar order_details">
+                    <img :src="product.thumbnail" :alt="product.brand" class="cart_img">
+                    <div>
+                        <p>{{ product.brand }}</p>
+                        <p>{{ product.title }}</p>
+                    </div>
+                </div>
                 <div>
-                    <p>{{ product.brand }}</p>
-                    <p>{{ product.title }}</p>
-                    <p>Qty {{ product.quantity }}</p>
-                </div>
-            </div>
+                    <div class="price_wrapper">
+                        <p class="mar">Price: ${{ product.price }}</p>
+                        <div class="mar btn_con"> <button @click="updateQuantity($event, product)" class="sub update">-</button> {{ product.quantity }}
+                            <button @click="updateQuantity($event, product)" class="plus update">+</button>
+                        </div>
+                        <p>Subtotal: ${{ product.price * product.quantity }}</p>
 
-            <div>
-                <div class="price_wrapper">
-                    <div></div>
-                    <p class="mar">Price: ${{ product.price }}</p>
-                    <p class="mar">Qty: {{ product.quantity }}</p>
-                    <p>Subtotal: ${{ product.price * product.quantity }}</p>
+                    </div>
+                    <div class="wishlist_rem">
 
-                </div>
-                <div class="wishlist_rem">
-                    <button>wishlist</button>
-                    <button>remove</button>
+                        <button>remove</button>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="order_summary">
             <h2>Order Summary</h2>
             <p>Subtotal: ${{ subTotal }}</p>
@@ -71,7 +99,16 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
     gap: 1em;
     padding: 1em;
 }
-
+.update{
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.update:hover{
+    background-color: #2f6786;
+    color: white;
+}
 .empty_msg {
     max-width: 350px;
 }
@@ -80,7 +117,7 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
     display: flex;
     align-items: center;
     gap: 3em;
-    padding: 3em;
+    padding: 1em;
 }
 
 .cart_wrapper {
@@ -112,7 +149,6 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
 }
 
 .cart_img {
-
     height: 100px;
     object-fit: cover;
     border-radius: 10px;
@@ -146,6 +182,19 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
     border-radius: 10px;
     border: none;
 }
+.btn_con{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+.empty_cart {
+    max-width: 250px;
+    margin: 1em auto;
+}
+
+.product {
+    margin-bottom: 2em;
+}
 
 @media (min-width:40rem) {
     .order_btnwrap {
@@ -166,12 +215,10 @@ const { cartLength, cartProducts, subTotal } = getCart(store.state.user.uid)
         grid-template-columns: 1fr 1fr;
     }
 
-    .price_wrapper {
-        display: flex;
-    }
 
     .order_btnwrap {
         width: 100%;
     }
 
-}</style>
+}
+</style>
