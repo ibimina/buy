@@ -107,7 +107,10 @@ const remount = () => {
     padding: 0.5em 1em;
     cursor: pointer;
 }
-
+.logout:hover {
+    background-color: #1b4b66;
+    color: #fff;
+}
 .name {
     margin: 0.5em 0;
 }
@@ -168,12 +171,19 @@ span {
     background-color: #1b4b66;
     color: #fff;
 }
-
+.upload:hover {
+    background-color: #fff;
+    color: #1b4b66;
+    border: 1px solid #1b4b66;
+}
 .remove {
     color: #b00020;
     border: 1px solid #b00020;
 }
-
+.remove:hover {
+    background-color: #b00020;
+    color: #fff;
+}
 .file_label {
     display: flex;
     flex-direction: column-reverse;
@@ -198,5 +208,9 @@ span {
     margin-top: 1em;
     cursor: pointer;
 }
-
+.submit:hover {
+    background-color: #fff;
+    color: #1b4b66;
+    border: 1px solid #1b4b66;
+}
 @media (min-width:60rem) {}</style>

@@ -9,7 +9,7 @@ import FooterBar from '@/components/FooterBar.vue';
     <section class="hero">
       <div class="intro">
         <h1 class="title">Best Place to Buy <span class="green">Everything</span> </h1>
-        <p class="text">At Bachira, you can shop for all your favorite beauty brands, clothes,
+        <p class="text">At Buy, you can shop for all your favorite beauty brands, clothes,
           household products and more at a single place.</p>
         <RouterLink to="/products" class="shopping">Shopping now</RouterLink>
       </div>
@@ -22,23 +22,33 @@ import FooterBar from '@/components/FooterBar.vue';
       <div class="category">
         <div class="col_one">
           <div class="bg_img fashion">
-            <h3 class="bold">fashion</h3>
-            <p class="light">30,000 items</p>
+            <routerLink to="/category/mens-shirts">
+              <h3 class="bold">fashion</h3>
+              <p class="light">30,000 items</p>
+            </routerLink>
           </div>
+
           <div class="bg_img skincare">
-            <h3 class="bold">skincare</h3>
-            <p class="light">2,000 items</p>
+            <routerLink to="/category/skincare">
+              <h3 class="bold">skincare</h3>
+              <p class="light">2,000 items</p>
+            </routerLink>
           </div>
         </div>
         <div class="col_two">
           <div class="bg_img shoe">
-            <h3 class="bold">shoes</h3>
-            <p class="light">10,000 items</p>
+            <routerLink to="/category/women-shoes">
+              <h3 class="bold">shoes</h3>
+              <p class="light">10,000 items</p>
+            </routerLink>
           </div>
           <div class="bg_img electronics">
-            <h3 class="bold">electronics</h3>
-            <p class="light">10,000 items</p>
+            <routerLink to="/category/laptops">
+              <h3 class="bold">electronics</h3>
+              <p class="light">10,000 items</p>
+            </routerLink>
           </div>
+
         </div>
       </div>
     </section>
@@ -61,9 +71,9 @@ import FooterBar from '@/components/FooterBar.vue';
       </div>
 
     </section>
-   
+
   </main>
-   <FooterBar />
+  <FooterBar />
 </template>
 
 <style scoped>
@@ -113,24 +123,33 @@ import FooterBar from '@/components/FooterBar.vue';
 
 .col_one,
 .fashion,
-.shoe,.cate_title {
+.shoe,
+.cate_title {
   margin-bottom: 1em;
 }
-.cate_title,.store{
+
+.cate_title,
+.store {
   font-weight: 500;
   text-transform: capitalize;
 }
+
 .bg_img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 10em;
   border-radius: 10px;
-  color: #fff;
   text-align: right;
   padding: 1em 2em;
+  cursor: pointer;
 }
-
+.bg_img a{
+ color: #fafafa;
+}
+.bg_img a:hover{
+ color: #0c0c0c;
+}
 .bg_img {
   text-transform: capitalize;
 }
@@ -160,14 +179,17 @@ import FooterBar from '@/components/FooterBar.vue';
   text-align: center;
   margin: 3em 0;
 }
-.why_q{
+
+.why_q {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 0.5em;
 }
-.service{
+
+.service {
   margin-bottom: 2em;
 }
+
 .grey {
   color: #535A56;
 }
@@ -180,11 +202,13 @@ import FooterBar from '@/components/FooterBar.vue';
 .light {
   font-weight: 500;
 }
-.serv_title{
+
+.serv_title {
   font-size: 18px;
   font-weight: 500;
 }
-.store{
+
+.store {
   display: block;
 
 }
@@ -193,6 +217,7 @@ import FooterBar from '@/components/FooterBar.vue';
   .landing {
     padding-inline: 3em;
   }
+
   .title {
     font-size: 54px;
     line-height: 60px;
@@ -224,7 +249,8 @@ import FooterBar from '@/components/FooterBar.vue';
   }
 
   .shoe,
-  .col_one,.service {
+  .col_one,
+  .service {
     margin-bottom: 0;
   }
 

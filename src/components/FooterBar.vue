@@ -5,6 +5,7 @@ import links from '@/constants/links';
 <template>
     <footer>
         <ul class="footer_links">
+            <li class="buy"> Buy</li>
             <li class="hd">Shop by Category
                 <ul class="sub">
                     <li v-for="link in links" :key="link.category" class="grey">
@@ -48,6 +49,10 @@ footer {
     background-color: #1B4B66;
     color: #fff;
     padding: 1em;
+}
+.buy{
+    font-weight: 700;
+    margin-bottom: 1em;
 }
 .social {
     background-color: #639599;
