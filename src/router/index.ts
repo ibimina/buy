@@ -28,6 +28,12 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('../views/CheckoutView.vue'),
+      meta: { auth: true }
+    },
+    {
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue')

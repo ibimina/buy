@@ -20,8 +20,8 @@ const { visible, handleModal } = modalControl();
         </ul>
     </section>
     <section class="links" :data-visible="visible">
-        <button @click="handleModal" class="close">close</button>
-        <ul>
+        <button @click="handleModal" class="close" aria-label="close"></button>
+        <ul class="fulllink">
             <li v-for="link in links" :key="link.category" class="link_wrap">
                 <routerLink :to="link.link"> {{ link.category }}</routerLink>
             </li>
@@ -29,6 +29,27 @@ const { visible, handleModal } = modalControl();
     </section>
 </template>
 <style scoped>
+.close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+   background-image: url('../assets/icon-close.svg');
+   background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 1em;
+    outline: none;
+}
+.fulllink{
+    margin-top: 2em;
+}
+.close:hover{
+ background-color: black;
+}
 .categories_container {
     margin-top: 1em;
 }
