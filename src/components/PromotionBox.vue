@@ -35,9 +35,6 @@ onMounted(() => {
     </div>
 </template>
 <style scoped>
-.promotions {
-    padding: 1em;
-}
 .card a{
     text-decoration: none;
     color: black;
@@ -84,6 +81,4 @@ onMounted(() => {
     overflow-x: hidden;
 }
 }
-
-
 </style>

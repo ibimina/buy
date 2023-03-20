@@ -18,41 +18,40 @@ onMounted(() => {
 </script>
 
 <template>
+    <div class="category_con">
     <Navbar />
-
-    <div>
-        <div class="flex">
-                <PreviousArr/>
-            <h1 class="cat">{{ category }}</h1>
+        <div>
+            <div class="flex">
+                    <PreviousArr/>
+                <h1 class="cat">{{ category }}</h1>
+            </div>
+            <p v-if="loading"><LoadingImg/></p>
+            <p v-if="error">error</p>
+            <ul class="products">
+                <li v-for="product in products" :key="product.id" class="categorycard">
+                    <routerLink :to="`/product/${product.id}`">
+                        <ProductCard :thumbnail="product.thumbnail" :title="product.title" :rating="product.rating"
+                            :description="product.description" :price="product.price" :percent="product.discountPercentage" />
+                    </routerLink>
+                </li>
+            </ul>
         </div>
 
-        <p v-if="loading"><LoadingImg/></p>
-        <p v-if="error">error</p>
-        <ul class="products">
-            <li v-for="product in products" :key="product.id" class="categorycard">
-                <routerLink :to="`/product/${product.id}`">
-                    <ProductCard :thumbnail="product.thumbnail" :title="product.title" :rating="product.rating"
-                        :description="product.description" :price="product.price" :percent="product.discountPercentage" />
-                </routerLink>
-            </li>
-        </ul>
     </div>
-    <FooterBar />
+        <FooterBar />
 </template>
 <style scoped>
+.category_con{
+    padding: 3em;
+}
 .cat {
     text-transform: capitalize;
-    padding: 1em;
+margin:1em 0;
 }
 .flex{
     display: flex;
     align-items: center;
     gap: 1em;
-    padding: 0 2em;
-}
-.products {
-    padding: 1em;
-    margin: 1em auto;                         
 }
 
 .categorycard {
@@ -67,18 +66,15 @@ onMounted(() => {
         grid-template-columns: repeat(2, 1fr);
         gap: 1em;
     }
+    .categorycard{
+        margin:0;
+    }
 }
 
 @media (min-width: 60rem) {
     .products {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1em;
-    }
-
-    .category_wrapper {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
         gap: 1em;
     }
 }</style>
