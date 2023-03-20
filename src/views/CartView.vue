@@ -41,64 +41,60 @@ const removeItem = async(item: DocumentData)=>{
 </script>
 <template>
     <div class="cart_container">
-
-    </div>
-    <div class="flex">
-        <PreviousArr />
-        <h1 class="my_cart">My Bag</h1>
-    </div>
-
-    <div v-if="cartLength === 0" class="emty_wrapper">
-        <div class="empty_msg">
-            <img src="/images/art.png" alt="empty cart" class="empty_cart">
-            <p>You haven't added any item. Start shopping to make your bag bloom
-            </p>
+     <div class="flex">
+            <PreviousArr />
+            <h1 class="my_cart">My Bag</h1>
         </div>
-        <routerLink to="/products" class="shopping">Continue Shopping</routerLink>
-    </div>
-    <div class="cart_wrapper" v-if="cartLength > 0">
-        <div>
-            <div v-for="product in cartProducts" :key="product.id" class="padd product">
-                <div class="mar order_details">
-                    <img :src="product.thumbnail" :alt="product.brand" class="cart_img">
-                    <div>
-                        <p>{{ product.brand }}</p>
-                        <p>{{ product.title }}</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="price_wrapper">
-                        <p class="mar">Price: ${{ product.price }}</p>
-                        <div class="mar btn_con"> <button @click="updateQuantity($event, product)"
-                                class="sub update">-</button> {{ product.quantity }}
-                            <button @click="updateQuantity($event, product)" class="plus update">+</button>
+        <div v-if="cartLength === 0" class="emty_wrapper">
+            <div class="empty_msg">
+                <img src="/images/art.png" alt="empty cart" class="empty_cart">
+                <p>You haven't added any item. Start shopping to make your bag bloom
+                </p>
+            </div>
+            <routerLink to="/products" class="shopping">Continue Shopping</routerLink>
+        </div>
+        <div class="cart_wrapper" v-if="cartLength > 0">
+            <div>
+                <div v-for="product in cartProducts" :key="product.id" class="padd product">
+                    <div class="mar order_details">
+                        <img :src="product.thumbnail" :alt="product.brand" class="cart_img">
+                        <div>
+                            <p>{{ product.brand }}</p>
+                            <p>{{ product.title }}</p>
                         </div>
-                        <p>Subtotal: ${{ product.price * product.quantity }}</p>
-
                     </div>
-                    <div class="wishlist_rem">
-
-                        <button class="remove" @click="removeItem(product)">remove</button>
+                    <div>
+                        <div class="price_wrapper">
+                            <p class="mar">Price: ${{ product.price }}</p>
+                            <div class="mar btn_con"> <button @click="updateQuantity($event, product)"
+                                    class="sub update">-</button> {{ product.quantity }}
+                                <button @click="updateQuantity($event, product)" class="plus update">+</button>
+                            </div>
+                            <p>Subtotal: ${{ product.price * product.quantity }}</p>
+                        </div>
+                        <div class="wishlist_rem">
+                            <button class="remove" @click="removeItem(product)">remove</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="order_summary">
-            <h2>Order Summary</h2>
-            <p>Subtotal: ${{ subTotal }}</p>
-            <p>Delivery Fee: $0</p>
-            <p>Grand total: ${{ subTotal }}</p>
-            <div class="order_btnwrap">
-                <routerLink to="/checkout" class="cart_link checkout">Place Order</routerLink>
-                <routerLink to="/products" class="cart_link shop">Continue shopping</routerLink>
-
+            <div class="order_summary">
+                <h2>Order Summary</h2>
+                <p>Subtotal: ${{ subTotal }}</p>
+                <p>Delivery Fee: $0</p>
+                <p>Grand total: ${{ subTotal }}</p>
+                <div class="order_btnwrap">
+                    <routerLink to="/checkout" class="cart_link checkout">Place Order</routerLink>
+                </div>
             </div>
         </div>
     </div>
     <FooterBar />
 </template>
 <style scoped>
+.cart_container{
+    padding: 1em;
+}
 .emty_wrapper {
     display: grid;
     place-items: center;
@@ -126,13 +122,10 @@ const removeItem = async(item: DocumentData)=>{
 .flex {
     display: flex;
     align-items: center;
-    gap: 3em;
-    padding: 1em;
+    gap: 1.5em;
+    margin-bottom: 2em;
 }
 
-.cart_wrapper {
-    padding: 1em;
-}
 
 .shopping {
     padding: 1em;
@@ -212,23 +205,12 @@ const removeItem = async(item: DocumentData)=>{
     background-color: #2f6786;
     border-radius: 10px;
     text-align: center;
-    max-width: 200px;
-    margin: 1em auto;
     color: white;
-}
-.shop{
-    background-color: #fff;
-    color: #2f6786;
-    border: 1px solid #2f6786;
 }
 .checkout{
     background-color: #2f6786;
     color: #fff;
     border: 1px solid #2f6786;
-}
-.shop:hover{
-background-color: lightslategrey;
-color:#fff;
 }
 .checkout:hover{
     background-color: #213745;
@@ -242,21 +224,27 @@ color:#fff;
 
     .cart_wrapper {
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 60% 40%;
     }
 
     .mar {
-        margin-bottom: 0;
+        margin-bottom: 1em;
     }
 
     .product {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-
-
     .order_btnwrap {
         width: 100%;
     }
-
-}</style>
+    .cart_container{
+    padding: 3em;
+}
+}
+@media (min-width: 60rem) {
+    .cart_container{
+    padding: 3em;
+}
+}
+</style>
