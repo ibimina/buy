@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import LandingNavbar from '@/components/LandingNavbar.vue';
 import FooterBar from '@/components/FooterBar.vue';
+
+window.scrollTo(0, 0);
 </script>
 <template>
     <div class="about_hero">

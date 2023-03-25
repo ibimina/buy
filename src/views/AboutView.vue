@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LandingNavbar from '@/components/LandingNavbar.vue';
+window.scrollTo(0, 0);
 </script>
 <template>
   <div class="about_container">

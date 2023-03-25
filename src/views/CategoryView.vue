@@ -8,9 +8,9 @@ import ProductCard from '@/components/ProductCard.vue';
 import LoadingImg from '@/components/LoadingImg.vue';
 import PreviousArr from '@/components/PreviousArr.vue';
 
+window.scrollTo(0, 0);
 const route = useRoute()
 const { category } = route.params
-
 const { loading, error, fetchData, products } = FetchProducts(`/products/category/${category}`);
 onMounted(() => {
     fetchData();
