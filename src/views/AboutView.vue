@@ -20,7 +20,7 @@ window.scrollTo(0, 0);
           <a href="https://github.com/ibimina" target="_blank" rel="noopener noreferrer" class="social_link">
             <img src="/images/about/github.svg" alt="github">
           </a>
-          <a href="https://ibimina.github.io/ibimina-portfolio/" target="_blank" rel="noopener noreferrer"
+          <a href="https://ibimina-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer"
             class="social_link">
             <img src="/images/about/portfolio.png" alt="code">
           </a>
